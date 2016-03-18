@@ -1,8 +1,14 @@
 #pragma once
 class CUnitTest
 {
-private:
+	CMat2D A;
+	CMat2D B;
+	CMat2D I;
+	CMat2D O;
+	//Constructeur
+public:
 	CUnitTest(void);
 	~CUnitTest(void);
+
 };
 
