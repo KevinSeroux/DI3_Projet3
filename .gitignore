@@ -1,3 +1,5 @@
 # La liste des emplacements suivants ne seront pas proposés au commit
 Debug
 Release
+*.sdf
+*.suo
