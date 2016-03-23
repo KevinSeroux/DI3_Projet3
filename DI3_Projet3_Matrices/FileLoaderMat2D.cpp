@@ -1,18 +1,17 @@
 #include "FileLoaderMat2D.h"
-#include "Mat2D.h"
 #include <iostream>
 #include <fstream>
 
 using namespace std;
 
-CMat2D<double> FLMload(char* pcPath)
+CMat2D<double> static FLMload(char* pcPath)
 {
 	int iboucle;
 	char* cptype;
 	char cboucle;
 	int inbLigne;
 	int inbColonne;
-	CMat2D M2Dres;
+	CMat2D<double> M2Dres;
 
 	ifstream fichier("test.txt", ios::in);  // on ouvre le fichier en lecture
  
@@ -38,10 +37,11 @@ CMat2D<double> FLMload(char* pcPath)
 			fichier.get(cboucle);
 		fichier >> inbColonne;
 
-		CMat2D 
+		//M2Dres = CMat2D<double>(inbLigne,inbColonne);
 
 		fichier.close();  // on ferme le fichier
 	}
     else  // sinon
 		cerr << "Impossible d'ouvrir le fichier !" << endl;
+	return M2Dres;
 }
