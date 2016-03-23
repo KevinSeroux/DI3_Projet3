@@ -76,7 +76,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cexception.cpp" />
     <ClCompile Include="DI3_Projet3_Matrices.cpp" />
+    <ClCompile Include="FileLoaderMat2D.cpp" />
+    <ClCompile Include="Mat2D.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="UnitTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Cexception.h" />
+    <ClInclude Include="FileLoaderMat2D.h" />
+    <ClInclude Include="Mat2D.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="UnitTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
