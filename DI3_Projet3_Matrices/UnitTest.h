@@ -1,3 +1,5 @@
+#include "Mat2D.h"
+
 #pragma once
 class CUnitTest
 {
