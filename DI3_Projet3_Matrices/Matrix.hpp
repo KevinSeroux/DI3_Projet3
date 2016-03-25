@@ -6,6 +6,18 @@ CMatrix<T>::CMatrix(unsigned int uiCountRows, unsigned int uiCountColumns)
 	assert(false && "Not Implemented Yet");
 }
 
+template <class T>
+CMatrix<T>::CMatrix(const CMatrix<T>&)
+{
+	assert(false && "Not Implemented Yet");
+}
+
+template <class T>
+CMatrix<T>::~CMatrix()
+{
+	assert(false && "Not Implemented Yet");
+}
+
 
 template <class T>
 CMatrix<T> CMatrix<T>::operator+(const CMatrix<T>&) const

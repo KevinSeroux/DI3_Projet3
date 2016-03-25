@@ -8,6 +8,8 @@ class CMatrix
 {
 public:
 	CMatrix(unsigned int uiCountRows, unsigned int uiCountColumns);
+	CMatrix(const CMatrix<T>&);
+	~CMatrix();
 
 	CMatrix<T> operator+(const CMatrix<T>&) const;
 	CMatrix<T>& operator+=(const CMatrix<T>&);
@@ -34,6 +36,10 @@ public:
 	T operator()(unsigned int uiRow, unsigned int uiColumn);
 
 	std::ostream& operator<<(std::ostream& stream);
+
+private:
+	unsigned int countRows, countColumns;
+	T*** ppptMatData;
 };
 
 //Free functions
