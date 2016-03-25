@@ -1,6 +1,5 @@
 #include "UnitTest.h"
 
-
 CUnitTest::CUnitTest(void)
 {
 }

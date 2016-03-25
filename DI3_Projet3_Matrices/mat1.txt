@@ -1,6 +1,6 @@
 TypeMatrice=double
-NBLignes=3
-NBColonnes=3
+NBLignes=3 
+NBColonnes=3 
 Matrice=[
 1 2 3
 4 5 6

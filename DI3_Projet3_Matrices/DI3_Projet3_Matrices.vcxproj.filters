@@ -18,13 +18,26 @@
     <ClCompile Include="DI3_Projet3_Matrices.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
     <ClCompile Include="UnitTest.cpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClCompile>
     <ClCompile Include="Cexception.cpp">
+=======
+    <ClCompile Include="Matrix.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Mat2D.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="FileLoaderMat2D.cpp">
+>>>>>>> Stashed changes
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="FileLoaderMatrix.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitTest.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

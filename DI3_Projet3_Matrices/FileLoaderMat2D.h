@@ -1,22 +1,20 @@
-#ifndef FILELOADERMAT2D_H
-#define FILELOADERMAT2D_H
-
 #include "Mat2D.h"
 #include <iostream>
 #include <fstream>
 
 using namespace std;
 
-class CFileLoaderMatrix
+#pragma once
+class CFileLoaderMat2D
 {
 	//Constructeur
 private:
-	CFileLoaderMatrix(void){};
-	~CFileLoaderMatrix(void){};
+	CFileLoaderMat2D(void){};
+	~CFileLoaderMat2D(void){};
 
 	//Methode
 public:	
-	static CMatrix<double> FLMload(char* pcPath){
+	static CMat2D<double> FLMload(char* pcPath){
 	int iboucle, ibouclei, ibouclej;
 	char* cptype = new char[32];
 	char* DOUBLE = "double";
@@ -81,7 +79,7 @@ public:
 		}
 
 
-		CMatrix<double> M2Dres = CMatrix<double>(inbLigne,inbColonne);
+		CMat2D<double> M2Dres = CMat2D<double>(inbLigne,inbColonne);
 
 		fichier.close();  // on ferme le fichier
 		return M2Dres;
@@ -92,4 +90,3 @@ public:
 }
 };
 
-#endif //FILELOADERMAT2D_H
