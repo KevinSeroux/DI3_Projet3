@@ -1,16 +1,14 @@
-#include "Mat2D.h"
+#ifndef UNITTEST_H
+#define UNITTEST_H
 
-#pragma once
+#include "Matrix.h"
+
 class CUnitTest
 {
-	CMat2D A;
-	CMat2D B;
-	CMat2D I;
-	CMat2D O;
-	//Constructeur
 public:
-	CUnitTest(void);
-	~CUnitTest(void);
-
+	CUnitTest();
+	~CUnitTest();
+	void test_matrices();
 };
 
+#endif //UNITTEST_H

@@ -1,17 +1,17 @@
-#include "FileLoaderMat2D.h"
+#include "FileLoaderMatrix.h"
 #include <iostream>
 #include <fstream>
 
 using namespace std;
 
-CMat2D<double> static FLMload(char* pcPath)
+CMatrix<double> CFileLoaderMatrix::FLMload(char* pcPath)
 {
 	int iboucle;
 	char* cptype;
 	char cboucle;
 	int inbLigne;
 	int inbColonne;
-	CMat2D<double> M2Dres;
+	CMatrix<double> M2Dres(0,0); //TO REPLACE
 
 	ifstream fichier("test.txt", ios::in);  // on ouvre le fichier en lecture
  

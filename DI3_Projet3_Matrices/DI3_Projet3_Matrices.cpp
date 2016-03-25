@@ -1,10 +1,18 @@
-#include "FileLoaderMat2D.h"
+#include <iostream>
+#include "FileLoaderMatrix.h"
+#include "Matrix.h"
+#include "UnitTest.h"
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
+	CUnitTest tests;
+	tests.test_matrices();
+
 	char * str = "mat1.txt";
-	FLMload(str);
+	CFileLoaderMatrix::FLMload(str);
+
+
 	return 0;
 }
