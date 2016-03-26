@@ -1,5 +1,4 @@
 #include "FileLoaderMatrix.h"
-#include "Matrix.h"
 
 CMatrix<double> CFileLoaderMatrix::FLMload(char* pcPath){
 	int iboucle, ibouclei, ibouclej;

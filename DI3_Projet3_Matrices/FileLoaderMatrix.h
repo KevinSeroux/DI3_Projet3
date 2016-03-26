@@ -1,9 +1,9 @@
 #ifndef FILELOADERMATRIX_H
 #define FILELOADERMATRIX_H
 
-#include "Mat2D.h"
 #include <iostream>
 #include <fstream>
+#include "Matrix.h"
 
 using namespace std;
 
@@ -16,7 +16,7 @@ private:
 
 	//Methode
 public:	
-	CMatrix<double> static FLMload(char* pcPath);
+	static CMatrix<double> FLMload(char* pcPath);
 };
 
 #endif //FILELOADERMAT2D_H
