@@ -33,7 +33,7 @@ Cexception::Cexception(void)
 * Sortie :
 * Post-condition : valeure de l'exception modifiée
 * ************************************************/
-void Cexception::EXCmodifier_valeur(unsigned int val)
+inline void Cexception::EXCmodifier_valeur(unsigned int val)
 {
 	uiEXCvaleur = val;
 }
@@ -48,7 +48,7 @@ void Cexception::EXCmodifier_valeur(unsigned int val)
 * Sortie : valeur de l'exception
 * Post-condition : valeur de l'exception retournée
 * ************************************************/
-unsigned int Cexception::EXClire_valeur()
+inline unsigned int Cexception::EXClire_valeur()
 {
 	return uiEXCvaleur;
 }
