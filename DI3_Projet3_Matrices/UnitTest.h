@@ -12,8 +12,8 @@ class CUnitTest
 
 	//Constructeur
 public:
-	CUnitTest(void){}
-	~CUnitTest(void){}
+	CUnitTest();
+	~CUnitTest();
 	void test_matrices();
 };
 

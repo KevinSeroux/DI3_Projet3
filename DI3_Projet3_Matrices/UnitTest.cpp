@@ -1,5 +1,13 @@
 #include "UnitTest.h"
 
+CUnitTest::CUnitTest()
+{
+}
+
+CUnitTest::~CUnitTest()
+{
+}
+
 void CUnitTest::test_matrices()
 {
 	CMatrix<int> mat1(3,3);

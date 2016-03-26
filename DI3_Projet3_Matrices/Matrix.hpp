@@ -1,29 +1,74 @@
-#include <cassert>
+#include <cassert> //TODO: To remove when all the methods are implemented
+#include "Cexception.h"
+//TODO: Fonction qui itére sur les lignes, colonnes avec une fonction callback
 
 template <class T>
 CMatrix<T>::CMatrix(unsigned int uiCountRows, unsigned int uiCountColumns)
 {
-	assert(false && "Not Implemented Yet");
+	this->uiCountRows = uiCountRows;
+	this->uiCountColumns = uiCountColumns;
+
+	ppptMatData = new T**[uiCountRows];
+	for(unsigned int uiCurrentRow = 0; uiCurrentRow < uiCountRows; uiCurrentRow++)
+	{
+		ppptMatData[uiCurrentRow] = new T*[uiCountColumns];
+		for(unsigned int uiCurrentColumn = 0; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
+			ppptMatData[uiCurrentRow][uiCurrentColumn] = new T;
+	}
 }
 
+//TODO: Refactor with operator=?
+//TODO: Use operator() to copy the values
 template <class T>
-CMatrix<T>::CMatrix(const CMatrix<T>&)
+CMatrix<T>::CMatrix(const CMatrix<T>& MATParam)
 {
-	assert(false && "Not Implemented Yet");
+	uiCountRows = MATParam.uiCountRows;
+	uiCountColumns = MATParam.uiCountColumns;
+
+	ppptMatData = new T**[uiCountRows];
+	for(unsigned int uiCurrentRow = 0; uiCurrentRow < uiCountRows; uiCurrentRow++)
+	{
+		ppptMatData[uiCurrentRow] = new T*[uiCountColumns];
+		for(unsigned int uiCurrentColumn = 0; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
+		{
+			ppptMatData[uiCurrentRow][uiCurrentColumn] = new T;
+			(uiCurrentRow, uiCurrentColumn) = MATParam(uiCurrentRow, uiCurrentColumn);
+		}
+	}
 }
 
 template <class T>
 CMatrix<T>::~CMatrix()
 {
-	assert(false && "Not Implemented Yet");
+	for(unsigned int uiCurrentRow = 0; uiCurrentRow < uiCountRows; uiCurrentRow++)
+	{
+		for(unsigned int uiCurrentColumn = 0; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
+			delete ppptMatData[uiCurrentRow][uiCurrentColumn];
+
+		delete[] ppptMatData[uiCurrentRow];
+	}
+
+	delete[] ppptMatData;
 }
 
 
 template <class T>
-CMatrix<T> CMatrix<T>::operator+(const CMatrix<T>&) const
+CMatrix<T> CMatrix<T>::operator+(const CMatrix<T>& MATParam) const
 {
-	assert(false && "Not Implemented Yet");
-	return CMatrix<T>(1,1);
+	if(uiCountRows != MATParam.uiCountRows || uiCountColumns != MATParam.uiCountRows)
+	   throw new Cexception(EXC_SIZE_INVALID);
+
+	CMatrix<T> MAT2Return(uiCountRows, uiCountColumns);
+	unsigned int uiCurrentRow = 0, uiCurrentColumn = 0;
+
+	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)
+		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
+		{
+			MAT2Return(uiCurrentRow, uiCurrentColumn) = 
+			(uiCurrentRow, uiCurrentColumn) + MATParam(uiCurrentRow, uiCurrentColumn);
+		}
+
+	return MAT2Return;
 }
 
 template <class T>
@@ -108,7 +153,7 @@ CMatrix<T>& CMatrix<T>::operator/=(const T)
 
 
 template <class T>
-CMatrix<T> CMatrix<T>::transpose()
+CMatrix<T> CMatrix<T>::MATtranspose()
 {
 	assert(false && "Not Implemented Yet");
 	return CMatrix<T>(1,1);
@@ -131,10 +176,17 @@ bool CMatrix<T>::operator==(const CMatrix<T>&)
 
 
 template <class T>
-T CMatrix<T>::operator()(unsigned int uiRow, unsigned int uiColumn)
+inline T& CMatrix<T>::operator()(unsigned int uiRow, unsigned int uiColumn)
 {
-	assert(false && "Not Implemented Yet");
-	return T;
+	//TODO: Tester que uiRow et uiColumn sont dans les bornes
+	return *ppptMatData[uiRow][uiColumn];
+}
+
+template <class T>
+inline T CMatrix<T>::operator()(unsigned int uiRow, unsigned int uiColumn) const
+{
+	//TODO: Tester que uiRow et uiColumn sont dans les bornes
+	return *ppptMatData[uiRow][uiColumn];
 }
 
 
@@ -145,6 +197,18 @@ std::ostream& CMatrix<T>::operator<<(std::ostream& stream)
 	return stream;
 }
 
+
+template <class T>
+inline unsigned int const CMatrix<T>::MATgetCountRows() const
+{
+	return uiCountRows;
+}
+
+template <class T>
+inline unsigned int const CMatrix<T>::MATgetCountColumns() const
+{
+	return uiCountColumns;
+}
 
 //Free functions
 template <class T>

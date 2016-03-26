@@ -27,7 +27,19 @@ public:
 * Sortie :
 * Post-condition : Exception initialisé à 0
 * ************************************************/
-	Cexception(void);
+	Cexception();
+
+/**************************************************
+* CException
+* *************************************************
+* Constructeur
+* *************************************************
+* Entrée: Valeur associée à l'exception
+* Pré-condition :
+* Sortie :
+* Post-condition : Exception initialisé à la valeur en entrée
+* ************************************************/
+	Cexception(unsigned int);
 
 /**************************************************
 * ~CException
@@ -39,7 +51,7 @@ public:
 * Sortie :
 * Post-condition : exception détruite
 * ************************************************/
-	~Cexception(void);
+	~Cexception();
 
 	//Methode
 /**************************************************
@@ -47,10 +59,10 @@ public:
 * *************************************************
 * Modifier valeur de l'exception
 * *************************************************
-* Entrée: nouvelle valeure
+* Entrée: nouvelle valeur
 * Pré-condition :
 * Sortie :
-* Post-condition : valeure de l'exception modifiée
+* Post-condition : valeur de l'exception modifiée
 * ************************************************/
 	void EXCmodifier_valeur(unsigned int);
 

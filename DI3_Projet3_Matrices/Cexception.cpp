@@ -18,9 +18,24 @@ la levée d'exceptions.
 * Sortie :
 * Post-condition : Exception initialisé à 0
 * ************************************************/
-Cexception::Cexception(void)
+Cexception::Cexception()
 {
 	uiEXCvaleur = 0;
+}
+
+/**************************************************
+* CException
+* *************************************************
+* Constructeur
+* *************************************************
+* Entrée: Valeur associée à l'exception
+* Pré-condition :
+* Sortie :
+* Post-condition : Exception initialisé à la valeur en entrée
+* ************************************************/
+Cexception::Cexception(unsigned int uiValue)
+{
+	uiEXCvaleur = uiValue;
 }
 
 /**************************************************

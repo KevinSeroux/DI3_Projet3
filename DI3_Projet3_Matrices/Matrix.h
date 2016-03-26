@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#define EXC_SIZE_INVALID 0
+
 template <class T>
 class CMatrix
 {
@@ -27,18 +29,22 @@ public:
 	CMatrix<T> operator/(const T) const;
 	CMatrix<T>& operator/=(const T);
 
-	CMatrix<T> transpose();
+	CMatrix<T> MATtranspose();
 
 	CMatrix<T>& operator=(const CMatrix<T>&);
 
 	bool operator==(const CMatrix<T>&);
 
-	T operator()(unsigned int uiRow, unsigned int uiColumn);
+	T& operator()(unsigned int uiRow, unsigned int uiColumn);
+	T operator()(unsigned int uiRow, unsigned int uiColumn) const;
 
 	std::ostream& operator<<(std::ostream& stream);
 
+	unsigned int const MATgetCountRows() const;
+	unsigned int const MATgetCountColumns() const;
+
 private:
-	unsigned int countRows, countColumns;
+	unsigned int uiCountRows, uiCountColumns;
 	T*** ppptMatData;
 };
 
