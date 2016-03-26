@@ -1,6 +1,3 @@
-#ifndef CEXCEPTION_H
-#define CEXCEPTION_H
-
 /**************************************************
 Titre: Classe pour la gestion des exceptions
 ***************************************************
@@ -8,6 +5,9 @@ Interface de la Classe Cexception
 Permet de créer des objets remontés lors de 
 la levée d'exceptions.
 **************************************************/
+
+#ifndef CEXCEPTION_H
+#define CEXCEPTION_H
 
 class Cexception
 {
