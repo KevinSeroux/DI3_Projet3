@@ -37,7 +37,7 @@ CMatrix<T>::CMatrix(const CMatrix<T>& MATParam)
 		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
 		{
 			ppptMatData[uiCurrentRow][uiCurrentColumn] = new T;
-			(uiCurrentRow, uiCurrentColumn) = MATParam(uiCurrentRow, uiCurrentColumn);
+			(*this)(uiCurrentRow, uiCurrentColumn) = MATParam(uiCurrentRow, uiCurrentColumn);
 		}
 	}
 }
@@ -74,7 +74,7 @@ CMatrix<T> CMatrix<T>::operator+(const CMatrix<T>& MATParam) const
 		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
 		{
 			MAT2Return(uiCurrentRow, uiCurrentColumn) = 
-			(uiCurrentRow, uiCurrentColumn) + MATParam(uiCurrentRow, uiCurrentColumn);
+			(*this)(uiCurrentRow, uiCurrentColumn) + MATParam(uiCurrentRow, uiCurrentColumn);
 		}
 	}
 
@@ -85,7 +85,7 @@ template <class T>
 CMatrix<T>& CMatrix<T>::operator+=(const CMatrix<T>&)
 {
 	assert(false && "Not Implemented Yet");
-	return this;
+	return *this;
 }
 
 
@@ -100,7 +100,7 @@ template <class T>
 CMatrix<T>& CMatrix<T>::operator-=(const CMatrix<T>&)
 {
 	assert(false && "Not Implemented Yet");
-	return this;
+	return *this;
 }
 
 
@@ -115,7 +115,7 @@ template <class T>
 CMatrix<T>& CMatrix<T>::operator*=(const CMatrix<T>&)
 {
 	assert(false && "Not Implemented Yet");
-	return this;
+	return *this;
 }
 
 template <class T>
@@ -129,7 +129,7 @@ template <class T>
 CMatrix<T>& CMatrix<T>::operator*=(const T)
 {
 	assert(false && "Not Implemented Yet");
-	return this;
+	return *this;
 }
 
 
@@ -144,7 +144,7 @@ template <class T>
 CMatrix<T>& CMatrix<T>::operator/=(const CMatrix<T>&)
 {
 	assert(false && "Not Implemented Yet");
-	return this;
+	return *this;
 }
 
 template <class T>
@@ -158,7 +158,7 @@ template <class T>
 CMatrix<T>& CMatrix<T>::operator/=(const T)
 {
 	assert(false && "Not Implemented Yet");
-	return this;
+	return *this;
 }
 
 
@@ -170,10 +170,19 @@ CMatrix<T> CMatrix<T>::MATtranspose()
 }
 
 template <class T>
-CMatrix<T>& CMatrix<T>::operator=(const CMatrix<T>&)
+CMatrix<T>& CMatrix<T>::operator=(const CMatrix<T>& MATParam)
 {
-	assert(false && "Not Implemented Yet");
-	return this;
+	unsigned int uiCurrentRow = 0;
+	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)
+	{
+		unsigned int uiCurrentColumn = 0;
+		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
+		{
+			(*this)(uiCurrentRow, uiCurrentColumn) = MATParam(uiCurrentRow, uiCurrentColumn);
+		}
+	}
+
+	return *this;
 }
 
 
