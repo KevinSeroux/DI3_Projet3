@@ -6,7 +6,7 @@
 int main(int argc, char* argv[])
 {
 	CUnitTest tests;
-	tests.test_matrices();
+	tests.testMatrix();
 
 	char * str = "mat1.txt";
 

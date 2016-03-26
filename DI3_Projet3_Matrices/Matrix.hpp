@@ -9,16 +9,18 @@ CMatrix<T>::CMatrix(unsigned int uiCountRows, unsigned int uiCountColumns)
 	this->uiCountColumns = uiCountColumns;
 
 	ppptMatData = new T**[uiCountRows];
-	for(unsigned int uiCurrentRow = 0; uiCurrentRow < uiCountRows; uiCurrentRow++)
+	unsigned int uiCurrentRow = 0;
+	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)
 	{
 		ppptMatData[uiCurrentRow] = new T*[uiCountColumns];
-		for(unsigned int uiCurrentColumn = 0; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
+
+		unsigned int uiCurrentColumn = 0;
+		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
 			ppptMatData[uiCurrentRow][uiCurrentColumn] = new T;
 	}
 }
 
 //TODO: Refactor with operator=?
-//TODO: Use operator() to copy the values
 template <class T>
 CMatrix<T>::CMatrix(const CMatrix<T>& MATParam)
 {
@@ -26,10 +28,13 @@ CMatrix<T>::CMatrix(const CMatrix<T>& MATParam)
 	uiCountColumns = MATParam.uiCountColumns;
 
 	ppptMatData = new T**[uiCountRows];
-	for(unsigned int uiCurrentRow = 0; uiCurrentRow < uiCountRows; uiCurrentRow++)
+
+	unsigned int uiCurrentRow = 0;
+	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)
 	{
 		ppptMatData[uiCurrentRow] = new T*[uiCountColumns];
-		for(unsigned int uiCurrentColumn = 0; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
+		unsigned int uiCurrentColumn = 0;
+		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
 		{
 			ppptMatData[uiCurrentRow][uiCurrentColumn] = new T;
 			(uiCurrentRow, uiCurrentColumn) = MATParam(uiCurrentRow, uiCurrentColumn);
@@ -40,9 +45,11 @@ CMatrix<T>::CMatrix(const CMatrix<T>& MATParam)
 template <class T>
 CMatrix<T>::~CMatrix()
 {
-	for(unsigned int uiCurrentRow = 0; uiCurrentRow < uiCountRows; uiCurrentRow++)
+	unsigned int uiCurrentRow = 0;
+	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)
 	{
-		for(unsigned int uiCurrentColumn = 0; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
+		unsigned int uiCurrentColumn = 0;
+		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
 			delete ppptMatData[uiCurrentRow][uiCurrentColumn];
 
 		delete[] ppptMatData[uiCurrentRow];
@@ -59,14 +66,17 @@ CMatrix<T> CMatrix<T>::operator+(const CMatrix<T>& MATParam) const
 	   throw new Cexception(EXC_SIZE_INVALID);
 
 	CMatrix<T> MAT2Return(uiCountRows, uiCountColumns);
-	unsigned int uiCurrentRow = 0, uiCurrentColumn = 0;
 
+	unsigned int uiCurrentRow = 0;
 	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)
+	{
+		unsigned int uiCurrentColumn = 0;
 		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
 		{
 			MAT2Return(uiCurrentRow, uiCurrentColumn) = 
 			(uiCurrentRow, uiCurrentColumn) + MATParam(uiCurrentRow, uiCurrentColumn);
 		}
+	}
 
 	return MAT2Return;
 }

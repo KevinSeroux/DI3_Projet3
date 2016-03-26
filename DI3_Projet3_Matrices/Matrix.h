@@ -35,8 +35,8 @@ public:
 
 	bool operator==(const CMatrix<T>&);
 
-	T& operator()(unsigned int uiRow, unsigned int uiColumn);
-	T operator()(unsigned int uiRow, unsigned int uiColumn) const;
+	T& operator()(unsigned int uiRow, unsigned int uiColumn); //Version to set
+	T operator()(unsigned int uiRow, unsigned int uiColumn) const; //Version to get
 
 	std::ostream& operator<<(std::ostream& stream);
 

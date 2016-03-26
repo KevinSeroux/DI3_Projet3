@@ -14,7 +14,7 @@ class CUnitTest
 public:
 	CUnitTest();
 	~CUnitTest();
-	void test_matrices();
+	void testMatrix();
 };
 
 #endif //UNITTEST_H
