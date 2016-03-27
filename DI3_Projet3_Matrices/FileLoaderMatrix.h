@@ -15,8 +15,8 @@ private:
 	~CFileLoaderMatrix(void){};
 
 	//Methode
-public:	
-	static CMatrix<double> FLMload(char* pcPath);
+public:
+	static CMatrix<double> FLMload(char const* pcPath);
 };
 
 #endif //FILELOADERMAT2D_H

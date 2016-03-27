@@ -2,12 +2,14 @@
 Titre: Classe pour la gestion des exceptions
 ***************************************************
 Interface de la Classe Cexception
-Permet de créer des objets remontés lors de 
+Permet de créer des objets remontés lors de
 la levée d'exceptions.
 **************************************************/
 
 #ifndef CEXCEPTION_H
 #define CEXCEPTION_H
+
+#define FILE_OPENING_ERROR 1
 
 class Cexception
 {

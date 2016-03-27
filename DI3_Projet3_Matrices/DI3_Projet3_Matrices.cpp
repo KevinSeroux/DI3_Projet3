@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
 	CUnitTest tests;
 	tests.testMatrix();
 
-	char * str = "mat1.txt";
+	char const * str = "mat1.txt";
 
 	CFileLoaderMatrix::FLMload(str);
 

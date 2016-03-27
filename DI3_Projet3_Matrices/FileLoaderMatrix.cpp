@@ -1,17 +1,17 @@
 #include "FileLoaderMatrix.h"
 
-CMatrix<double> CFileLoaderMatrix::FLMload(char* pcPath){
-	int iboucle, ibouclei, ibouclej;
+CMatrix<double> CFileLoaderMatrix::FLMload(char const * pcPath){
+	unsigned int iboucle, ibouclei, ibouclej;
 	char* cptype = new char[32];
-	char* DOUBLE = "double";
+	char const * DOUBLE = "double";
 	char cboucle;
 	int inbLigne;
 	int inbColonne;
 
 	ifstream fichier("mat1.txt", ios::in);  // on ouvre le fichier en lecture
- 
+
 	if(fichier)  // si l'ouverture a réussi
-	{       
+	{
 		for(iboucle = 0; iboucle <= 11; iboucle++) //positionnement au début du type
 			fichier.get(cboucle);
 
@@ -37,39 +37,29 @@ CMatrix<double> CFileLoaderMatrix::FLMload(char* pcPath){
 			fichier.get(cboucle);
 		fichier >> inbColonne;
 
-		//M2Dres = CMat2D(inbLigne, inbColonne);
+		CMatrix<double> MATres/* = CMatrix<double>*/(inbLigne, inbColonne);
 
 		for(iboucle = 0; cboucle != '['; iboucle++) //positionnement au début des valeurs
 			fichier.get(cboucle);
 		fichier.get(cboucle);
 
-		ibouclei = 0;
-		ibouclej = -1;
 		while(cboucle != ']')
 		{
-			if(cboucle == '\n')
-			{
-				ibouclej++;
-				ibouclei = 0;
-				fichier.get(cboucle);
-			}
-
-			if(cboucle >='0' || cboucle <= '9' || cboucle == '.')
-			{
-				fichier >> iboucle;
-				//M2Dres(ibouclei, ibouclej) = iboucle;
-				while(cboucle != ' ' && cboucle != '\n')
-					fichier.get(cboucle);
-			}
+			for(ibouclei = 0; ibouclei < MATres.MATgetCountRows(); ibouclei++)
+            {
+                for(ibouclej = 0; ibouclej < MATres.MATgetCountColumns(); ibouclej++)
+// TODO (kubuntu#1#): tester la bonne écriture des données ...
+//
+                    fichier >> MATres(ibouclei, ibouclej);
+                fichier.get(cboucle);
+                fichier.get(cboucle);
+            }
 		}
 
-
-		CMatrix<double> M2Dres = CMatrix<double>(inbLigne,inbColonne);
-
 		fichier.close();  // on ferme le fichier
-		return M2Dres;
+		return MATres;
 	}
     else  // sinon
 		cerr << "Impossible d'ouvrir le fichier !" << endl;
-	throw ;
+	throw new Cexception(FILE_OPENING_ERROR);
 }
