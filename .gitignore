@@ -5,8 +5,8 @@
 *.cbp
 bin/
 obj/
-.depend
-.layout
+*.depend
+*.layout
 
 # User-specific files
 *.suo
