@@ -94,14 +94,14 @@ static void testMatrixOperatorStream()
 	MAT1(0, 1) = 112;
 	MAT1(1, 0) = 121;
 	MAT1(1, 1) = 122;
-	MAT1 >> std::cout;
+	std::cout << MAT1;
 
 	CMatrix<double> MAT2(2, 2);
 	MAT2(0, 0) = .111;
 	MAT2(0, 1) = 1.12;
 	MAT2(1, 0) = 12.1;
 	MAT2(1, 1) = 122.;
-	MAT2 >> std::cout;
+	std::cout << MAT2;
 }
 
 void CUnitTest::testMatrix()

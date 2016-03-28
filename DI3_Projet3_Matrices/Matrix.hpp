@@ -210,25 +210,6 @@ inline T CMatrix<T>::operator()(unsigned int uiRow, unsigned int uiColumn) const
 
 
 template <class T>
-std::ostream& CMatrix<T>::operator>>(std::ostream& stream)
-{
-    unsigned int uiloopRow, uiloopColumn;
-    stream << "[\n";
-    for(uiloopRow = 0; uiloopRow < MATgetCountRows(); uiloopRow++)
-    {
-        for(uiloopColumn = 0; uiloopColumn < MATgetCountColumns(); uiloopColumn++)
-        {
-            stream << this->operator()(uiloopRow, uiloopColumn) << ' ';
-        }
-        stream << std::endl;
-    }
-	//assert(false && "Not Implemented Yet");
-	stream << "]\n";
-	return stream;
-}
-
-
-template <class T>
 inline unsigned int const CMatrix<T>::MATgetCountRows() const
 {
 	return uiCountRows;
@@ -253,4 +234,25 @@ CMatrix<T> operator/(const T, const CMatrix<T>&)
 {
 	assert(false && "Not Implemented Yet");
 	return CMatrix<T>(1,1);
+}
+
+template <class T>
+std::ostream& operator<<(std::ostream& out, const CMatrix<T>& MAT)
+{
+    out << '[' << std::endl;
+
+    unsigned int uiCurrentRow = 0;
+	for(uiCurrentRow; uiCurrentRow < MAT.MATgetCountRows(); uiCurrentRow++)
+    {
+		unsigned int uiCurrentColumn = 0;
+        for(; uiCurrentColumn < MAT.MATgetCountColumns(); uiCurrentColumn++)
+        {
+            out << MAT(uiCurrentRow, uiCurrentColumn) << ' ';
+        }
+        out << std::endl;
+    }
+
+	out << ']' << std::endl;
+
+	return out;
 }

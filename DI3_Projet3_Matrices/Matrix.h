@@ -1,6 +1,8 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+//TODO: Utiliser friend pour les méthodes libres (solution pour avoir une interface Matrice)
+
 #include <iostream>
 
 #define EXC_SIZE_INVALID 0
@@ -38,8 +40,6 @@ public:
 	T& operator()(unsigned int uiRow, unsigned int uiColumn); //Version to set
 	T operator()(unsigned int uiRow, unsigned int uiColumn) const; //Version to get
 
-	std::ostream& operator>>(std::ostream& stream);
-
 	unsigned int const MATgetCountRows() const;
 	unsigned int const MATgetCountColumns() const;
 
@@ -51,6 +51,7 @@ private:
 //Free functions
 template <class T> CMatrix<T> operator*(const T, const CMatrix<T>&);
 template <class T> CMatrix<T> operator/(const T, const CMatrix<T>&);
+template <class T> std::ostream& operator<<(std::ostream& out, const CMatrix<T>&);
 
 #include "Matrix.hpp"
 
