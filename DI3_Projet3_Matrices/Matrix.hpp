@@ -164,7 +164,7 @@ CMatrix<T> CMatrix<T>::operator*(const T value) const
         }
     }
 
-	return CMatrix<T>(1,1);
+	return MATres;
 }
 
 template <class T>
