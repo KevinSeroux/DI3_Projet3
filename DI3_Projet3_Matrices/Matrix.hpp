@@ -65,7 +65,7 @@ CMatrix<T> CMatrix<T>::operator+(const CMatrix<T>& MATParam) const
 	if(uiCountRows != MATParam.uiCountRows || uiCountColumns != MATParam.uiCountRows)
 	   throw new Cexception(EXC_SIZE_INVALID);
 
-	CMatrix<T> MAT2Return(uiCountRows, uiCountColumns);
+	CMatrix<T> MATreturn(uiCountRows, uiCountColumns);
 
 	unsigned int uiCurrentRow = 0;
 	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)
@@ -73,12 +73,12 @@ CMatrix<T> CMatrix<T>::operator+(const CMatrix<T>& MATParam) const
 		unsigned int uiCurrentColumn = 0;
 		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
 		{
-			MAT2Return(uiCurrentRow, uiCurrentColumn) = 
+			MATreturn(uiCurrentRow, uiCurrentColumn) =
 			(*this)(uiCurrentRow, uiCurrentColumn) + MATParam(uiCurrentRow, uiCurrentColumn);
 		}
 	}
 
-	return MAT2Return;
+	return MATreturn;
 }
 
 template <class T>
@@ -210,9 +210,20 @@ inline T CMatrix<T>::operator()(unsigned int uiRow, unsigned int uiColumn) const
 
 
 template <class T>
-std::ostream& CMatrix<T>::operator<<(std::ostream& stream)
+std::ostream& CMatrix<T>::operator>>(std::ostream& stream)
 {
-	assert(false && "Not Implemented Yet");
+    unsigned int uiloopRow, uiloopColumn;
+    stream << "[\n";
+    for(uiloopRow = 0; uiloopRow < MATgetCountRows(); uiloopRow++)
+    {
+        for(uiloopColumn = 0; uiloopColumn < MATgetCountColumns(); uiloopColumn++)
+        {
+            stream << this->operator()(uiloopRow, uiloopColumn) << ' ';
+        }
+        stream << std::endl;
+    }
+	//assert(false && "Not Implemented Yet");
+	stream << "]\n";
 	return stream;
 }
 

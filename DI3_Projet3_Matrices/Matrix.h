@@ -38,7 +38,7 @@ public:
 	T& operator()(unsigned int uiRow, unsigned int uiColumn); //Version to set
 	T operator()(unsigned int uiRow, unsigned int uiColumn) const; //Version to get
 
-	std::ostream& operator<<(std::ostream& stream);
+	std::ostream& operator>>(std::ostream& stream);
 
 	unsigned int const MATgetCountRows() const;
 	unsigned int const MATgetCountColumns() const;
