@@ -26,7 +26,7 @@ CMatrix<double> CFileLoaderMatrix::FLMload(char const * pcPath){
 
 		for(uiloop = 0; *(cptype + uiloop) != 0; uiloop++)	//Vérification type = double
 			if(*(cptype + uiloop) != *(DOUBLE + uiloop))
-				printf("Type incorrect");//throw ;
+				throw new Cexception(NOT_SUPPORTED_DATA_TYPE);
 
 		for(uiloop = 0; cloop != '='; uiloop++) //positionnement au début de int nblignes
 			fichier.get(cloop);
@@ -46,11 +46,7 @@ CMatrix<double> CFileLoaderMatrix::FLMload(char const * pcPath){
         for(uiloopRow = 0; uiloopRow < MATres.MATgetCountRows(); uiloopRow++)
         {
             for(uiloopColumn = 0; uiloopColumn < MATres.MATgetCountColumns(); uiloopColumn++)
-            {
                 fichier >> MATres(uiloopRow, uiloopColumn);
-                cout << MATres(uiloopRow, uiloopColumn);
-            }
-            //fichier.get(cloop);
         }
 
 		fichier.close();  // on ferme le fichier

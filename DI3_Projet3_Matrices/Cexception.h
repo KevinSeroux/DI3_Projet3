@@ -10,6 +10,7 @@ la levée d'exceptions.
 #define CEXCEPTION_H
 
 #define FILE_OPENING_ERROR 1
+#define NOT_SUPPORTED_DATA_TYPE 2
 
 class Cexception
 {
