@@ -5,6 +5,9 @@
 template <class T>
 CMatrix<T>::CMatrix(unsigned int uiCountRows, unsigned int uiCountColumns)
 {
+    if(uiCountColumns == 0 || uiCountRows == 0)
+        throw new Cexception(ZERO_SIZED_MATRIX);
+
 	this->uiCountRows = uiCountRows;
 	this->uiCountColumns = uiCountColumns;
 
@@ -105,10 +108,37 @@ CMatrix<T>& CMatrix<T>::operator-=(const CMatrix<T>&)
 
 
 template <class T>
-CMatrix<T> CMatrix<T>::operator*(const CMatrix<T>&) const
+CMatrix<T> CMatrix<T>::operator*(const CMatrix<T>& MATparam) const
 {
-	assert(false && "Not Implemented Yet");
-	return CMatrix<T>(1,1);
+    unsigned int uiloopRow, uiloopColumn, uiloopAdd, uinbAdd;
+
+    if(MATgetCountColumns() != MATparam.MATgetCountRows())
+        throw new Cexception(INVALID_MATRIX_SIZE_FOR_THIS_OPERATION);
+
+    CMatrix<T> MATres(MATgetCountRows(), MATparam.MATgetCountColumns());
+    for(uiloopRow = 0; uiloopRow < MATres.MATgetCountRows(); uiloopRow++)
+    {
+        for(uiloopColumn = 0; uiloopColumn < MATres.MATgetCountColumns(); uiloopColumn++)
+        {
+            MATres(uiloopRow, uiloopColumn) = 0;
+        }
+    }
+
+    uinbAdd = MATgetCountColumns();
+
+    for(uiloopRow = 0; uiloopRow < MATres.MATgetCountRows(); uiloopRow++)
+    {
+        for(uiloopColumn = 0; uiloopColumn < MATres.MATgetCountColumns(); uiloopColumn++)
+        {
+            for(uiloopAdd = 0; uiloopAdd < uinbAdd; uiloopAdd++)
+            {
+                MATres(uiloopRow, uiloopColumn) = MATres(uiloopRow, uiloopColumn)
+                + this->operator()(uiloopRow, uiloopAdd) * MATparam(uiloopAdd, uiloopColumn);
+            }
+        }
+    }
+	//assert(false && "Not Implemented Yet");
+	return MATres;
 }
 
 template <class T>
@@ -187,9 +217,22 @@ CMatrix<T>& CMatrix<T>::operator=(const CMatrix<T>& MATParam)
 
 
 template <class T>
-bool CMatrix<T>::operator==(const CMatrix<T>&)
+bool CMatrix<T>::operator==(const CMatrix<T>& MATparam)
 {
-	assert(false && "Not Implemented Yet");
+    if(MATgetCountColumns() != MATparam.MATgetCountColumns()
+        || MATgetCountRows() != MATparam.MATgetCountRows())
+            throw new Cexception(UNCOMPARABLE_MATRIX);
+
+    unsigned int uiloopRow, uiloopColumn;
+    for(uiloopRow = 0; uiloopRow < MATgetCountRows(); uiloopRow++)
+    {
+        for(uiloopColumn = 0; uiloopColumn < MATgetCountColumns(); uiloopColumn++)
+        {
+            if(this->operator()(uiloopRow, uiloopColumn) != MATparam(uiloopRow, uiloopColumn))
+                return false;
+        }
+    }
+	//assert(false && "Not Implemented Yet");
 	return true;
 }
 

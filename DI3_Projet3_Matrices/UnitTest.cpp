@@ -1,4 +1,5 @@
 #include "UnitTest.h"
+#include "Cexception.h"
 
 CUnitTest::CUnitTest()
 {
@@ -104,6 +105,75 @@ static void testMatrixOperatorStream()
 	std::cout << MAT2;
 }
 
+static void testMatrixOperatorMult()
+{
+    CMatrix<int> O(2, 2);
+	O(0, 0) = 0;
+	O(0, 1) = 0;
+	O(1, 0) = 0;
+	O(1, 1) = 0;
+
+	CMatrix<int> I(2, 2);
+	I(0, 0) = 1;
+	I(0, 1) = 0;
+	I(1, 0) = 0;
+	I(1, 1) = 1;
+
+	CMatrix<int> MAT(2, 2);
+	MAT(0, 0) = 11;
+	MAT(0, 1) = 12;
+	MAT(1, 0) = 21;
+	MAT(1, 1) = 22;
+
+    /*CMatrix<int> MATLig(1, 3); //tester avec matrices tailles !=
+	MAT(0, 0) = 1;
+	MAT(0, 1) = 2;
+	MAT(0, 2) = 1;
+
+	CMatrix<int> MATCol(3, 1);
+	MAT(0, 0) = 2;
+	MAT(1, 0) = 4;
+	MAT(2, 0) = 8;
+
+	(MATLig * MATCol) >> std::cout;*/
+
+	if(!((MAT * O) == O))
+        assert(false);
+    if(!((MAT * I) == MAT))
+        assert(false);
+}
+
+static void testMatrixOperatorEquality()
+{
+    CMatrix<int> MAT(2, 2);
+	MAT(0, 0) = 11;
+	MAT(0, 1) = 12;
+	MAT(1, 0) = 21;
+	MAT(1, 1) = 22;
+
+	CMatrix<int> MAT2(2, 2);
+	MAT2(0, 0) = 11;
+	MAT2(0, 1) = 12;
+	MAT2(1, 0) = 21;
+	MAT2(1, 1) = 0;
+
+	CMatrix<int> MAT3(1, 2);
+	MAT3(0, 0) = 11;
+	MAT3(0, 1) = 12;
+
+    if(!(MAT == MAT))
+        assert(false);
+    if(MAT == MAT2)
+        assert(false);
+    try{
+        MAT == MAT3;
+        assert(false);
+    }catch(Cexception*)
+    {
+        //Gestion de l'exception
+    }
+}
+
 void CUnitTest::testMatrix()
 {
 	testMatrixConstructorByDefault();
@@ -112,4 +182,6 @@ void CUnitTest::testMatrix()
 	testMatrixOperatorParenthesis();
 	testMatrixOperatorAdd();
 	testMatrixOperatorStream();
+	testMatrixOperatorMult();
+	testMatrixOperatorEquality();
 }
