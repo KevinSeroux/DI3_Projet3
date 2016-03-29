@@ -125,17 +125,18 @@ static void testMatrixOperatorMult()
 	MAT(1, 0) = 21;
 	MAT(1, 1) = 22;
 
-    /*CMatrix<int> MATLig(1, 3); //tester avec matrices tailles !=
-	MAT(0, 0) = 1;
-	MAT(0, 1) = 2;
-	MAT(0, 2) = 1;
+    CMatrix<int> MATLig(1, 3); //tester avec matrices tailles !=
+	MATLig(0, 0) = 1;
+	MATLig(0, 1) = 2;
+	MATLig(0, 2) = 1;
 
 	CMatrix<int> MATCol(3, 1);
-	MAT(0, 0) = 2;
-	MAT(1, 0) = 4;
-	MAT(2, 0) = 8;
+	MATCol(0, 0) = 2;
+	MATCol(1, 0) = 4;
+	MATCol(2, 0) = 8;
 
-	(MATLig * MATCol) >> std::cout;*/
+	std::cout << (2 * MATCol);
+	std::cout << (MATCol * 2);
 
 	if(!((MAT * O) == O))
         assert(false);

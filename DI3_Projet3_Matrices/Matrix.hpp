@@ -176,20 +176,6 @@ CMatrix<T>& CMatrix<T>::operator*=(const T)
 
 
 template <class T>
-CMatrix<T> CMatrix<T>::operator/(const CMatrix<T>&) const
-{
-	assert(false && "Not Implemented Yet");
-	return CMatrix<T>(1,1);
-}
-
-template <class T>
-CMatrix<T>& CMatrix<T>::operator/=(const CMatrix<T>&)
-{
-	assert(false && "Not Implemented Yet");
-	return *this;
-}
-
-template <class T>
 CMatrix<T> CMatrix<T>::operator/(const T) const
 {
 	assert(false && "Not Implemented Yet");
@@ -309,13 +295,6 @@ CMatrix<T> operator*(const T value, const CMatrix<T>& MATparam)
         }
     }
 	return MATres;
-}
-
-template <class T>
-CMatrix<T> operator/(const T, const CMatrix<T>&)
-{
-	assert(false && "Not Implemented Yet");
-	return CMatrix<T>(1,1);
 }
 
 template <class T>

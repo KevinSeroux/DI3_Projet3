@@ -26,8 +26,6 @@ public:
 	CMatrix<T> operator*(const T) const;
 	CMatrix<T>& operator*=(const T);
 
-	CMatrix<T> operator/(const CMatrix<T>&) const;
-	CMatrix<T>& operator/=(const CMatrix<T>&);
 	CMatrix<T> operator/(const T) const;
 	CMatrix<T>& operator/=(const T);
 
@@ -50,7 +48,6 @@ private:
 
 //Free functions
 template <class T> CMatrix<T> operator*(const T, const CMatrix<T>&);
-template <class T> CMatrix<T> operator/(const T, const CMatrix<T>&);
 template <class T> std::ostream& operator<<(std::ostream& out, const CMatrix<T>&);
 
 #include "Matrix.hpp"
