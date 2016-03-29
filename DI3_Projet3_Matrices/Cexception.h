@@ -15,6 +15,7 @@ la levée d'exceptions.
 #define INVALID_MATRIX_SIZE_FOR_THIS_OPERATION 4
 #define UNCOMPARABLE_MATRIX 5
 #define INDEX_OUT_OF_BOUND 6
+#define EXC_SIZE_INVALID 7
 
 class Cexception
 {

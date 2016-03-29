@@ -1,11 +1,9 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-//TODO: Utiliser friend pour les méthodes libres (solution pour avoir une interface Matrice)
+//TODO: virtual pour quelles opés ?
 
 #include <iostream>
-
-#define EXC_SIZE_INVALID 0
 
 template <class T>
 class CMatrix
@@ -34,6 +32,7 @@ public:
 	CMatrix<T>& operator=(const CMatrix<T>&);
 
 	bool operator==(const CMatrix<T>&);
+	bool operator!=(const CMatrix<T>&);
 
 	T& operator()(unsigned int uiRow, unsigned int uiColumn); //Version to set
 	T operator()(unsigned int uiRow, unsigned int uiColumn) const; //Version to get
@@ -42,6 +41,7 @@ public:
 	unsigned int const MATgetCountColumns() const;
 
 private:
+	//protected si héritage matrice dynamique
 	unsigned int uiCountRows, uiCountColumns;
 	T*** ppptMatData;
 };

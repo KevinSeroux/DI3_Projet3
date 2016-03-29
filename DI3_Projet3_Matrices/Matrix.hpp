@@ -2,6 +2,8 @@
 #include "Cexception.h"
 //TODO: Fonction qui itére sur les lignes, colonnes avec une fonction callback
 
+using namespace std;
+
 template <class T>
 CMatrix<T>::CMatrix(unsigned int uiCountRows, unsigned int uiCountColumns)
 {
@@ -23,7 +25,6 @@ CMatrix<T>::CMatrix(unsigned int uiCountRows, unsigned int uiCountColumns)
 	}
 }
 
-//TODO: Refactor with operator=?
 template <class T>
 CMatrix<T>::CMatrix(const CMatrix<T>& MATParam)
 {
@@ -245,6 +246,12 @@ bool CMatrix<T>::operator==(const CMatrix<T>& MATparam)
         }
     }
 	return true;
+}
+
+template <class T>
+inline bool CMatrix<T>::operator!=(const CMatrix<T>& MATParam)
+{
+	return !operator==(MATParam);
 }
 
 
