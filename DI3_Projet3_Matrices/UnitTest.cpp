@@ -9,7 +9,7 @@ CUnitTest::~CUnitTest()
 {
 }
 
-static void testMatrixConstructorByDefault()
+static void testMatrixConstructor()
 {
 	CMatrix<int> MAT(3, 4);
 	assert(MAT.MATgetCountRows() == 3);
@@ -265,7 +265,7 @@ static void testMatrixOperatorStream()
 	cout << MAT2;
 }
 
-static void testMatrixOperatorMult()
+static void testMatrixOperatorMultMat()
 {
     CMatrix<int> O(2, 2);
 	O(0, 0) = 0;
@@ -337,20 +337,23 @@ static void testMatrixOperatorEquality()
 
 void CUnitTest::testMatrix()
 {
-	testMatrixConstructorByDefault();
+	testMatrixConstructor();
 	testMatrixConstructorByCopy();
-	testMatrixOperatorEqual();
-	testMatrixOperatorParenthesis();
 	testMatrixOperatorAdd();
+	testMatrixOperatorAddEqual();
 	testMatrixOperatorSub();
 	testMatrixOperatorSubEqual();
-	testMatrixOperatorAddEqual();
-	testMatrixOperatorStream();
-	testMatrixOperatorMult();
+	testMatrixOperatorMultMat();
+	//testMatrixOperatorMultConst();
+	//testMatrixOperatorMultEqualConst();
 	testMatrixOperatorDiv();
 	testMatrixOperatorDivExc();
 	testMatrixOperatorDivEqual();
 	testMatrixOperatorDivEqualExc();
-	testMatrixOperatorStream();
+	testMatrixOperatorEqual();
 	testMatrixOperatorEquality();
+	//testMatrixOperatorInequality();
+	testMatrixOperatorParenthesis();
+
+	testMatrixOperatorStream();
 }

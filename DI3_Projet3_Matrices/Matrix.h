@@ -6,6 +6,10 @@
 template <class T>
 class CMatrix
 {
+private:
+	unsigned int uiCountRows, uiCountColumns;
+	T*** ppptMatData;
+
 public:
 	CMatrix(unsigned int uiCountRows, unsigned int uiCountColumns);
 	CMatrix(const CMatrix<T>&);
@@ -36,11 +40,6 @@ public:
 
 	unsigned int const MATgetCountRows() const;
 	unsigned int const MATgetCountColumns() const;
-
-private:
-	//protected si héritage matrice dynamique
-	unsigned int uiCountRows, uiCountColumns;
-	T*** ppptMatData;
 };
 
 //Free functions
