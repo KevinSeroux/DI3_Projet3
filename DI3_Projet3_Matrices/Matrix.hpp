@@ -86,9 +86,22 @@ CMatrix<T> CMatrix<T>::operator+(const CMatrix<T>& MATParam) const
 }
 
 template <class T>
-CMatrix<T>& CMatrix<T>::operator+=(const CMatrix<T>&)
+CMatrix<T>& CMatrix<T>::operator+=(const CMatrix<T>& MATParam)
 {
-	assert(false && "Not Implemented Yet");
+	if(uiCountRows != MATParam.uiCountRows || uiCountColumns != MATParam.uiCountRows)
+	   throw Cexception(EXC_SIZE_INVALID);
+
+	unsigned int uiCurrentRow = 0;
+	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)
+	{
+		unsigned int uiCurrentColumn = 0;
+		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
+		{
+			(*this)(uiCurrentRow, uiCurrentColumn) =
+			(*this)(uiCurrentRow, uiCurrentColumn) + MATParam(uiCurrentRow, uiCurrentColumn);
+		}
+	}
+
 	return *this;
 }
 
@@ -166,15 +179,13 @@ CMatrix<T> CMatrix<T>::operator*(const CMatrix<T>& MATparam) const
             }
         }
     }
-	//assert(false && "Not Implemented Yet");
+
 	return MATres;
 }
 
 template <class T>
 CMatrix<T> CMatrix<T>::operator*(const T value) const
 {
-	//assert(false && "Not Implemented Yet");
-
 	CMatrix<T> MATres(MATgetCountRows(), MATgetCountColumns());
 
 	unsigned int uiloopRow, uiloopColumn;
@@ -190,9 +201,17 @@ CMatrix<T> CMatrix<T>::operator*(const T value) const
 }
 
 template <class T>
-CMatrix<T>& CMatrix<T>::operator*=(const T)
+CMatrix<T>& CMatrix<T>::operator*=(const T value)
 {
-	assert(false && "Not Implemented Yet");
+	unsigned int uiloopRow, uiloopColumn;
+    for(uiloopRow = 0; uiloopRow < MATgetCountRows(); uiloopRow++)
+    {
+        for(uiloopColumn = 0; uiloopColumn < MATgetCountColumns(); uiloopColumn++)
+        {
+            (*this)(uiloopRow, uiloopColumn) = (*this)(uiloopRow, uiloopColumn) * value;
+        }
+    }
+
 	return *this;
 }
 
@@ -242,8 +261,6 @@ CMatrix<T>& CMatrix<T>::operator/=(const T tValue)
 template <class T>
 CMatrix<T> CMatrix<T>::MATtranspose()
 {
-	//assert(false && "Not Implemented Yet");
-
 	CMatrix<T> MATres(MATgetCountRows(), MATgetCountColumns());
 
 	unsigned int uiloopRow, uiloopColumn;

@@ -79,6 +79,14 @@ static void testMatrixOperatorAdd()
 	MAT2(1, 0) = 221;
 	MAT2(1, 1) = 222;
 
+	CMatrix<int> MAT3(3, 2);
+	try
+	{
+	    MAT2 = MAT2 + MAT3;
+	    assert(false);
+	}
+	catch(Cexception&){}
+
 	CMatrix<int> MAT(2, 2);
 	MAT = MAT1 + MAT2;
 
@@ -87,7 +95,6 @@ static void testMatrixOperatorAdd()
 	assert(MAT(1, 0) == 342);
 	assert(MAT(1, 1) == 344);
 }
-
 static void testMatrixOperatorSub()
 {
 	CMatrix<int> MAT1(2, 2);
@@ -205,6 +212,59 @@ static void testMatrixOperatorDivEqualExc()
 	};
 }
 
+static void testMatrixOperatorAddEqual()
+{
+	CMatrix<int> MAT1(2, 2);
+	MAT1(0, 0) = 111;
+	MAT1(0, 1) = 112;
+	MAT1(1, 0) = 121;
+	MAT1(1, 1) = 122;
+
+	CMatrix<int> MAT2(2, 2);
+	MAT2(0, 0) = 211;
+	MAT2(0, 1) = 212;
+	MAT2(1, 0) = 221;
+	MAT2(1, 1) = 222;
+
+	CMatrix<int> MAT(2, 2);
+	MAT(0, 0) = 0;
+	MAT(0, 1) = 0;
+	MAT(1, 0) = 0;
+	MAT(1, 1) = 0;
+	MAT += MAT1 += MAT2;
+
+	assert(MAT(0, 0) == 322);
+	assert(MAT(0, 1) == 324);
+	assert(MAT(1, 0) == 342);
+	assert(MAT(1, 1) == 344);
+
+	CMatrix<int> MAT3(3, 2);
+
+	try
+	{
+	    MAT1 += MAT3;
+	    assert(false);
+	}
+	catch(Cexception& e){ cout << "exception catched";}
+}
+
+static void testMatrixOperatorStream()
+{
+    CMatrix<int> MAT1(2, 2);
+	MAT1(0, 0) = 111;
+	MAT1(0, 1) = 112;
+	MAT1(1, 0) = 121;
+	MAT1(1, 1) = 122;
+	cout << MAT1;
+
+	CMatrix<double> MAT2(2, 2);
+	MAT2(0, 0) = .111;
+	MAT2(0, 1) = 1.12;
+	MAT2(1, 0) = 12.1;
+	MAT2(1, 1) = 122.;
+	cout << MAT2;
+}
+
 static void testMatrixOperatorMult()
 {
     CMatrix<int> O(2, 2);
@@ -235,30 +295,13 @@ static void testMatrixOperatorMult()
 	MATCol(1, 0) = 4;
 	MATCol(2, 0) = 8;
 
-	std::cout << (2 * MATCol);
-	std::cout << (MATCol * 2);
+	cout << (2 * MATCol);
+	cout << (MATCol * 2);
 
 	if(!((MAT * O) == O))
         assert(false);
     if(!((MAT * I) == MAT))
         assert(false);
-}
-
-static void testMatrixOperatorStream()
-{
-    CMatrix<int> MAT1(2, 2);
-	MAT1(0, 0) = 111;
-	MAT1(0, 1) = 112;
-	MAT1(1, 0) = 121;
-	MAT1(1, 1) = 122;
-	std::cout << MAT1;
-
-	CMatrix<double> MAT2(2, 2);
-	MAT2(0, 0) = .111;
-	MAT2(0, 1) = 1.12;
-	MAT2(1, 0) = 12.1;
-	MAT2(1, 1) = 122.;
-	std::cout << MAT2;
 }
 
 static void testMatrixOperatorEquality()
@@ -286,7 +329,7 @@ static void testMatrixOperatorEquality()
     try{
         MAT == MAT3;
         assert(false);
-    }catch(Cexception&)
+    }catch(Cexception& e)
     {
         //Gestion de l'exception
     }
@@ -301,6 +344,8 @@ void CUnitTest::testMatrix()
 	testMatrixOperatorAdd();
 	testMatrixOperatorSub();
 	testMatrixOperatorSubEqual();
+	testMatrixOperatorAddEqual();
+	testMatrixOperatorStream();
 	testMatrixOperatorMult();
 	testMatrixOperatorDiv();
 	testMatrixOperatorDivExc();
