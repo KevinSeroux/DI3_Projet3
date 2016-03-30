@@ -88,21 +88,121 @@ static void testMatrixOperatorAdd()
 	assert(MAT(1, 1) == 344);
 }
 
-static void testMatrixOperatorStream()
+static void testMatrixOperatorSub()
 {
-    CMatrix<int> MAT1(2, 2);
-	MAT1(0, 0) = 111;
-	MAT1(0, 1) = 112;
-	MAT1(1, 0) = 121;
-	MAT1(1, 1) = 122;
-	std::cout << MAT1;
+	CMatrix<int> MAT1(2, 2);
+	MAT1(0, 0) = 1;
+	MAT1(0, 1) = 2;
+	MAT1(1, 0) = 3;
+	MAT1(1, 1) = 4;
 
-	CMatrix<double> MAT2(2, 2);
-	MAT2(0, 0) = .111;
-	MAT2(0, 1) = 1.12;
-	MAT2(1, 0) = 12.1;
-	MAT2(1, 1) = 122.;
-	std::cout << MAT2;
+	CMatrix<int> MAT2(2, 2);
+	MAT2(0, 0) = 4;
+	MAT2(0, 1) = 3;
+	MAT2(1, 0) = 2;
+	MAT2(1, 1) = 1;
+
+	CMatrix<int> MAT(2, 2);
+	MAT = MAT2 - MAT1;
+
+	assert(MAT(0, 0) == 3);
+	assert(MAT(0, 1) == 1);
+	assert(MAT(1, 0) == -1);
+	assert(MAT(1, 1) == -3);
+}
+
+static void testMatrixOperatorSubEqual()
+{
+	CMatrix<int> MAT(2, 2);
+	MAT(0, 0) = 1;
+	MAT(0, 1) = 2;
+	MAT(1, 0) = 3;
+	MAT(1, 1) = 4;
+
+	CMatrix<int> MAT2(2, 2);
+	MAT2(0, 0) = 4;
+	MAT2(0, 1) = 3;
+	MAT2(1, 0) = 2;
+	MAT2(1, 1) = 1;
+
+	MAT -= MAT2;
+
+	assert(MAT(0, 0) == -3);
+	assert(MAT(0, 1) == -1);
+	assert(MAT(1, 0) == 1);
+	assert(MAT(1, 1) == 3);
+}
+
+static void testMatrixOperatorDiv()
+{
+	CMatrix<int> MAT2(2, 2);
+	MAT2(0, 0) = 0;
+	MAT2(0, 1) = -2;
+	MAT2(1, 0) = 4;
+	MAT2(1, 1) = -6;
+
+	CMatrix<int> MAT(2, 2);
+	MAT = MAT2 / -2;
+
+	assert(MAT(0, 0) == 0);
+	assert(MAT(0, 1) == 1);
+	assert(MAT(1, 0) == -2);
+	assert(MAT(1, 1) == 3);
+}
+
+static void testMatrixOperatorDivExc()
+{
+	CMatrix<int> MAT2(2, 2);
+	MAT2(0, 0) = 0;
+	MAT2(0, 1) = 2;
+	MAT2(1, 0) = 4;
+	MAT2(1, 1) = 6;
+
+	CMatrix<int> MAT(2, 2);
+	try
+	{
+		MAT = MAT2 / 0; //Should throw an exception
+		assert(false);
+	}
+	catch(Cexception& e)
+	{
+		assert(e.EXClire_valeur() == DIVIDE_BY_ZERO);
+	};
+}
+
+static void testMatrixOperatorDivEqual()
+{
+	CMatrix<int> MAT(2, 2);
+	MAT(0, 0) = 0;
+	MAT(0, 1) = -2;
+	MAT(1, 0) = 4;
+	MAT(1, 1) = -6;
+
+	MAT /= -2;
+
+	assert(MAT(0, 0) == 0);
+	assert(MAT(0, 1) == 1);
+	assert(MAT(1, 0) == -2);
+	assert(MAT(1, 1) == 3);
+}
+
+static void testMatrixOperatorDivEqualExc()
+{
+	CMatrix<int> MAT(2, 2);
+	MAT(0, 0) = 0;
+	MAT(0, 1) = 2;
+	MAT(1, 0) = 4;
+	MAT(1, 1) = 6;
+
+	try
+	{
+		MAT /= 0; //Should throw an exception
+		assert(false);
+	}
+	catch(Cexception& e)
+	{
+		assert(e.EXClire_valeur() == DIVIDE_BY_ZERO);
+	};
 }
 
 static void testMatrixOperatorMult()
@@ -144,6 +244,23 @@ static void testMatrixOperatorMult()
         assert(false);
 }
 
+static void testMatrixOperatorStream()
+{
+    CMatrix<int> MAT1(2, 2);
+	MAT1(0, 0) = 111;
+	MAT1(0, 1) = 112;
+	MAT1(1, 0) = 121;
+	MAT1(1, 1) = 122;
+	std::cout << MAT1;
+
+	CMatrix<double> MAT2(2, 2);
+	MAT2(0, 0) = .111;
+	MAT2(0, 1) = 1.12;
+	MAT2(1, 0) = 12.1;
+	MAT2(1, 1) = 122.;
+	std::cout << MAT2;
+}
+
 static void testMatrixOperatorEquality()
 {
     CMatrix<int> MAT(2, 2);
@@ -169,7 +286,7 @@ static void testMatrixOperatorEquality()
     try{
         MAT == MAT3;
         assert(false);
-    }catch(Cexception*)
+    }catch(Cexception&)
     {
         //Gestion de l'exception
     }
@@ -182,7 +299,13 @@ void CUnitTest::testMatrix()
 	testMatrixOperatorEqual();
 	testMatrixOperatorParenthesis();
 	testMatrixOperatorAdd();
-	testMatrixOperatorStream();
+	testMatrixOperatorSub();
+	testMatrixOperatorSubEqual();
 	testMatrixOperatorMult();
+	testMatrixOperatorDiv();
+	testMatrixOperatorDivExc();
+	testMatrixOperatorDivEqual();
+	testMatrixOperatorDivEqualExc();
+	testMatrixOperatorStream();
 	testMatrixOperatorEquality();
 }

@@ -16,6 +16,7 @@ la levée d'exceptions.
 #define UNCOMPARABLE_MATRIX 5
 #define INDEX_OUT_OF_BOUND 6
 #define EXC_SIZE_INVALID 7
+#define DIVIDE_BY_ZERO 8
 
 class Cexception
 {
@@ -59,7 +60,7 @@ public:
 * Sortie :
 * Post-condition : exception détruite
 * ************************************************/
-	~Cexception(){}
+	~Cexception() {}
 
 	//Methode
 /**************************************************
@@ -86,5 +87,35 @@ public:
 * ************************************************/
 	unsigned int EXClire_valeur();
 };
+
+/**************************************************
+* Excmodifier_valeur
+* *************************************************
+* Modifier valeur de l'exception
+* *************************************************
+* Entrée: nouvelle valeure
+* Pré-condition :
+* Sortie :
+* Post-condition : valeure de l'exception modifiée
+* ************************************************/
+inline void Cexception::EXCmodifier_valeur(unsigned int val)
+{
+	uiEXCvaleur = val;
+}
+
+/**************************************************
+* EXClire_valeur
+* *************************************************
+* Permet de lire la valeur de l'exception
+* *************************************************
+* Entrée:
+* Pré-condition :
+* Sortie : valeur de l'exception
+* Post-condition : valeur de l'exception retournée
+* ************************************************/
+inline unsigned int Cexception::EXClire_valeur()
+{
+	return uiEXCvaleur;
+}
 
 #endif

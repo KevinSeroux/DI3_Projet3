@@ -37,33 +37,3 @@ Cexception::Cexception(unsigned int uiValue)
 {
 	uiEXCvaleur = uiValue;
 }
-
-/**************************************************
-* Excmodifier_valeur
-* *************************************************
-* Modifier valeur de l'exception
-* *************************************************
-* Entrée: nouvelle valeure
-* Pré-condition :
-* Sortie :
-* Post-condition : valeure de l'exception modifiée
-* ************************************************/
-inline void Cexception::EXCmodifier_valeur(unsigned int val)
-{
-	uiEXCvaleur = val;
-}
-
-/**************************************************
-* EXClire_valeur
-* *************************************************
-* Permet de lire la valeur de l'exception
-* *************************************************
-* Entrée:
-* Pré-condition :
-* Sortie : valeur de l'exception
-* Post-condition : valeur de l'exception retournée
-* ************************************************/
-inline unsigned int Cexception::EXClire_valeur()
-{
-	return uiEXCvaleur;
-}

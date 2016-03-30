@@ -26,7 +26,7 @@ CMatrix<double> CFileLoaderMatrix::FLMload(char const * pcPath){
 
 		for(uiloop = 0; *(cptype + uiloop) != 0; uiloop++)	//Vérification type = double
 			if(*(cptype + uiloop) != *(DOUBLE + uiloop))
-				throw new Cexception(NOT_SUPPORTED_DATA_TYPE);
+				throw Cexception(NOT_SUPPORTED_DATA_TYPE);
 
 		for(uiloop = 0; cloop != '='; uiloop++) //positionnement au début de int nblignes
 			fichier.get(cloop);
@@ -54,5 +54,5 @@ CMatrix<double> CFileLoaderMatrix::FLMload(char const * pcPath){
 	}
     else  // sinon
 		cerr << "Impossible d'ouvrir le fichier !" << endl;
-	throw new Cexception(FILE_OPENING_ERROR);
+	throw Cexception(FILE_OPENING_ERROR);
 }

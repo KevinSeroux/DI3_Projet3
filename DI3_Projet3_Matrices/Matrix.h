@@ -1,8 +1,6 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-//TODO: virtual pour quelles opés ?
-
 #include <iostream>
 
 template <class T>
@@ -20,7 +18,6 @@ public:
 	CMatrix<T>& operator-=(const CMatrix<T>&);
 
 	CMatrix<T> operator*(const CMatrix<T>&) const;
-	CMatrix<T>& operator*=(const CMatrix<T>&);
 	CMatrix<T> operator*(const T) const;
 	CMatrix<T>& operator*=(const T);
 
