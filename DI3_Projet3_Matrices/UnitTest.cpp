@@ -208,9 +208,22 @@ static void testMatrixOperatorMultConst()
 	assert(MAT(1, 0) == 42);
 	assert(MAT(1, 1) == 44);
 }
+
 static void testMatrixOperatorMultEqualConst()
 {
-    //TODO A completer
+    CMatrix<int> MAT(2, 2);
+	MAT(0, 0) = 11;
+	MAT(0, 1) = 12;
+	MAT(1, 0) = 21;
+	MAT(1, 1) = 22;
+
+	assert((2 *MAT) == (MAT * 2));
+	MAT *= 2;
+
+	assert(MAT(0, 0) == 22);
+	assert(MAT(0, 1) == 24);
+	assert(MAT(1, 0) == 42);
+	assert(MAT(1, 1) == 44);
 }
 
 static void testMatrixOperatorDiv()
@@ -333,6 +346,37 @@ static void testMatrixOperatorEquality()
     }
 }
 
+static void testMatrixOperatorInequality()
+{
+	CMatrix<int> MAT(2, 2);
+	MAT(0, 0) = 11;
+	MAT(0, 1) = 12;
+	MAT(1, 0) = 21;
+	MAT(1, 1) = 22;
+
+	CMatrix<int> MAT2(2, 2);
+	MAT2(0, 0) = 11;
+	MAT2(0, 1) = 12;
+	MAT2(1, 0) = 21;
+	MAT2(1, 1) = 0;
+
+	CMatrix<int> MAT3(1, 2);
+	MAT3(0, 0) = 11;
+	MAT3(0, 1) = 12;
+
+    if(MAT != MAT)
+        assert(false);
+    if(!(MAT != MAT2))
+        assert(false);
+    try{
+        MAT != MAT3;
+        assert(false);
+    }catch(Cexception& e)
+    {
+        //Gestion de l'exception
+    }
+}
+
 static void testMatrixOperatorParenthesis()
 {
 	CMatrix<int> MAT(2, 3);
@@ -366,15 +410,15 @@ void CUnitTest::testMatrix()
 	testMatrixOperatorSub();
 	testMatrixOperatorSubEqual();
 	testMatrixOperatorMultMat();
-	//testMatrixOperatorMultConst();
-	//testMatrixOperatorMultEqualConst();
+	testMatrixOperatorMultConst();
+	testMatrixOperatorMultEqualConst();
 	testMatrixOperatorDiv();
 	testMatrixOperatorDivExc();
 	testMatrixOperatorDivEqual();
 	testMatrixOperatorDivEqualExc();
 	testMatrixOperatorEqual();
 	testMatrixOperatorEquality();
-	//testMatrixOperatorInequality();
+	testMatrixOperatorInequality();
 	testMatrixOperatorParenthesis();
 
 	testMatrixOperatorStream();
