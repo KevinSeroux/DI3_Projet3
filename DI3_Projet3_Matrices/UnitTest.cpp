@@ -192,6 +192,27 @@ static void testMatrixOperatorMultMat()
         assert(false);
 }
 
+static void testMatrixOperatorMultConst()
+{
+    CMatrix<int> MAT(2, 2);
+	MAT(0, 0) = 11;
+	MAT(0, 1) = 12;
+	MAT(1, 0) = 21;
+	MAT(1, 1) = 22;
+
+	assert((2 *MAT) == (MAT * 2));
+	MAT = 2 * MAT;
+
+	assert(MAT(0, 0) == 22);
+	assert(MAT(0, 1) == 24);
+	assert(MAT(1, 0) == 42);
+	assert(MAT(1, 1) == 44);
+}
+static void testMatrixOperatorMultEqualConst()
+{
+    //TODO A completer
+}
+
 static void testMatrixOperatorDiv()
 {
 	CMatrix<int> MAT2(2, 2);
