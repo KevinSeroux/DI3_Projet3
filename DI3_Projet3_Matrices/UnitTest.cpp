@@ -1,14 +1,52 @@
+/**************************************************
+Titre: Classe pour la gestion du chargement des fichier txt
+***************************************************
+Corps de la Classe CUnitTest
+Permet de tester les fonctions et surcharges de CMatrix
+**************************************************/
+
 #include "UnitTest.h"
 #include "Cexception.h"
 
+/**************************************************
+* CUnitTest
+* *************************************************
+* Constructeur par défaut
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : Instanciation de CUnitTest
+* ************************************************/
 CUnitTest::CUnitTest()
 {
 }
 
+/**************************************************
+* CUnitTest
+* *************************************************
+* Destructeur par défaut
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : Destruction de l'instanciation de CUnitTest
+* ************************************************/
 CUnitTest::~CUnitTest()
 {
 }
 
+/**************************************************
+* testMatrixConstructor
+* *************************************************
+* Test des constructeurs
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = Constructeurs 
+fonctionnel
+* ************************************************/
 static void testMatrixConstructor()
 {
 	CMatrix<int> MAT(3, 4);
@@ -16,6 +54,16 @@ static void testMatrixConstructor()
 	assert(MAT.MATgetCountColumns() == 4);
 }
 
+/**************************************************
+* testMatrixConstructorByCopy
+* *************************************************
+* Test de constructeur de recopie
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = fonctionnel
+* ************************************************/
 static void testMatrixConstructorByCopy()
 {
 	CMatrix<int> MAT(3, 2);
@@ -27,9 +75,8 @@ static void testMatrixConstructorByCopy()
 	MAT(2, 1) = 32;
 
 	CMatrix<int> MATCopy(MAT);
-
-	//To test if there is a copy of value and not a copy of address
-	MAT(1, 0) = 42;
+	
+	MAT(1, 0) = 42;//To test if there is a copy of value and not a copy of address
 
 	assert(MATCopy.MATgetCountRows() == 3);
 	assert(MATCopy.MATgetCountColumns() == 2);
@@ -41,6 +88,17 @@ static void testMatrixConstructorByCopy()
 	assert(MATCopy(2, 1) == 32);
 }
 
+/**************************************************
+* testMatrixOperatorAdd
+* *************************************************
+* Test de l'opérateur +
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = addition 
+fonctionnelle
+* ************************************************/
 static void testMatrixOperatorAdd()
 {
 	CMatrix<int> MAT1(2, 2);
@@ -72,6 +130,18 @@ static void testMatrixOperatorAdd()
 	assert(MAT(1, 1) == 344);
 }
 
+
+/**************************************************
+* testMatrixOperatorAddEqual
+* *************************************************
+* Test de l'opérateur +=
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = operateur += 
+fonctionnel
+* ************************************************/
 static void testMatrixOperatorAddEqual()
 {
 	CMatrix<int> MAT1(2, 2);
@@ -105,9 +175,20 @@ static void testMatrixOperatorAddEqual()
 	    MAT1 += MAT3;
 	    assert(false);
 	}
-	catch(Cexception& e){ cout << "exception catched";}
+	catch(Cexception& e){ }
 }
 
+/**************************************************
+* testMatrixOperatorSub
+* *************************************************
+* Test de l'opérateur -
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = soustraction 
+fonctionnelle
+* ************************************************/
 static void testMatrixOperatorSub()
 {
 	CMatrix<int> MAT1(2, 2);
@@ -129,8 +210,28 @@ static void testMatrixOperatorSub()
 	assert(MAT(0, 1) == 1);
 	assert(MAT(1, 0) == -1);
 	assert(MAT(1, 1) == -3);
+
+	CMatrix<int> MAT3(3, 2);
+
+	try
+	{
+	    MAT1 = MAT1 - MAT3;
+	    assert(false);
+	}
+	catch(Cexception& e){ }
 }
 
+/**************************************************
+* testMatrixOperatorSubEqual
+* *************************************************
+* Test de l'opérateur -=
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = operateur -=
+fonctionnel
+* ************************************************/
 static void testMatrixOperatorSubEqual()
 {
 	CMatrix<int> MAT(2, 2);
@@ -151,8 +252,28 @@ static void testMatrixOperatorSubEqual()
 	assert(MAT(0, 1) == -1);
 	assert(MAT(1, 0) == 1);
 	assert(MAT(1, 1) == 3);
+
+	CMatrix<int> MAT3(3, 2);
+
+	try
+	{
+	    MAT = MAT - MAT3;
+	    assert(false);
+	}
+	catch(Cexception& e){ }
 }
 
+/**************************************************
+* testMatrixOperatorMultMat
+* *************************************************
+* Test de operator*(CMatrix<T>)
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = operateur * 
+fonctionnel pour les matrices
+* ************************************************/
 static void testMatrixOperatorMultMat()
 {
     CMatrix<int> O(2, 2);
@@ -173,25 +294,55 @@ static void testMatrixOperatorMultMat()
 	MAT(1, 0) = 21;
 	MAT(1, 1) = 22;
 
-    CMatrix<int> MATLig(1, 3); //tester avec matrices tailles !=
+    assert((MAT * O) == O);	//Test avec element nul
+    assert((MAT * I) == MAT);	//Test avec element neutre
+
+    CMatrix<int> MATLig(1, 3); //Déclaration matrice ligne
 	MATLig(0, 0) = 1;
 	MATLig(0, 1) = 2;
 	MATLig(0, 2) = 1;
 
-	CMatrix<int> MATCol(3, 1);
+	CMatrix<int> MATCol(3, 1); //Déclaration matrice Colonne
 	MATCol(0, 0) = 2;
 	MATCol(1, 0) = 4;
 	MATCol(2, 0) = 8;
 
-	//cout << (MATLig * MATCol);
-	//cout << (MATCol * MATLig);
+	CMatrix<int> MATres1(1,1); //Déclaration matrice résultat attendu
+	MATres1(0,0) = 18;
 
-	if(!((MAT * O) == O))
-        assert(false);
-    if(!((MAT * I) == MAT))
-        assert(false);
+	CMatrix<int> MATres2(3, 3); //Déclaration matrice résultat attendu
+	MATres2(0, 0) = 2;
+	MATres2(0, 1) = 4;
+	MATres2(0, 2) = 2;
+	MATres2(1, 0) = 4;
+	MATres2(1, 1) = 8;
+	MATres2(1, 2) = 4;
+	MATres2(2, 0) = 8;
+	MATres2(2, 1) = 16;
+	MATres2(2, 2) = 8;
+
+	assert((MATLig * MATCol) == MATres1);	//Test avec matrices non carrées
+	assert((MATCol * MATLig) == MATres2);
+
+	try
+	{
+		MAT = MAT * MATLig;	//Test de l'exception matrices non compatibles
+		assert(false);
+	}
+	catch(Cexception&){}
 }
 
+/**************************************************
+* testMatrixOperatorMultConst
+* *************************************************
+* Test de operator*(const T)
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = operateur * 
+fonctionnel pour un objet T constant
+* ************************************************/
 static void testMatrixOperatorMultConst()
 {
     CMatrix<int> MAT(2, 2);
@@ -200,15 +351,26 @@ static void testMatrixOperatorMultConst()
 	MAT(1, 0) = 21;
 	MAT(1, 1) = 22;
 
-	assert((2 *MAT) == (MAT * 2));
+	assert((2 *MAT) == (MAT * 2));	//Test commutativité
 	MAT = 2 * MAT;
 
-	assert(MAT(0, 0) == 22);
+	assert(MAT(0, 0) == 22);	//Test des bonnes valeurs
 	assert(MAT(0, 1) == 24);
 	assert(MAT(1, 0) == 42);
 	assert(MAT(1, 1) == 44);
 }
 
+/**************************************************
+* testMatrixOperatorMultEqualConst
+* *************************************************
+* Test de operator*=(const T)
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = operateur *= 
+fonctionnel pour un objet T constant
+* ************************************************/
 static void testMatrixOperatorMultEqualConst()
 {
     CMatrix<int> MAT(2, 2);
@@ -217,15 +379,25 @@ static void testMatrixOperatorMultEqualConst()
 	MAT(1, 0) = 21;
 	MAT(1, 1) = 22;
 
-	assert((2 *MAT) == (MAT * 2));
 	MAT *= 2;
 
-	assert(MAT(0, 0) == 22);
+	assert(MAT(0, 0) == 22);	//Test des bonnes valeurs
 	assert(MAT(0, 1) == 24);
 	assert(MAT(1, 0) == 42);
 	assert(MAT(1, 1) == 44);
 }
 
+/**************************************************
+* testMatrixOperatorDiv
+* *************************************************
+* Test du bon retour de l'opérateur /(const T)
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = operateur /
+fonctionnel
+* ************************************************/
 static void testMatrixOperatorDiv()
 {
 	CMatrix<int> MAT2(2, 2);
@@ -237,12 +409,23 @@ static void testMatrixOperatorDiv()
 	CMatrix<int> MAT(2, 2);
 	MAT = MAT2 / -2;
 
-	assert(MAT(0, 0) == 0);
+	assert(MAT(0, 0) == 0); //Test des valeurs attendues
 	assert(MAT(0, 1) == 1);
 	assert(MAT(1, 0) == -2);
 	assert(MAT(1, 1) == 3);
 }
 
+/**************************************************
+* testMatrixOperatorDivExc
+* *************************************************
+* Test de du bon envoi des exceptions de l'opérateur /(const T)
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = operateur / 
+fonctionnel
+* ************************************************/
 static void testMatrixOperatorDivExc()
 {
 	CMatrix<int> MAT2(2, 2);
@@ -263,6 +446,16 @@ static void testMatrixOperatorDivExc()
 	};
 }
 
+/**************************************************
+* testMatrixOperatorDivEqual
+* *************************************************
+* Test du bon retour l'opérateur /=(const T)
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = operateur /= fonctionnel
+* ************************************************/
 static void testMatrixOperatorDivEqual()
 {
 	CMatrix<int> MAT(2, 2);
@@ -273,12 +466,22 @@ static void testMatrixOperatorDivEqual()
 
 	MAT /= -2;
 
-	assert(MAT(0, 0) == 0);
+	assert(MAT(0, 0) == 0);	//Test des valeurs attendues
 	assert(MAT(0, 1) == 1);
 	assert(MAT(1, 0) == -2);
 	assert(MAT(1, 1) == 3);
 }
 
+/**************************************************
+* testMatrixOperatorDivEqualExc
+* *************************************************
+* Test du retour d'exception de l'opérateur /=(const T)
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = operateur /= fonctionnel
+* ************************************************/
 static void testMatrixOperatorDivEqualExc()
 {
 	CMatrix<int> MAT(2, 2);
@@ -298,6 +501,16 @@ static void testMatrixOperatorDivEqualExc()
 	};
 }
 
+/**************************************************
+* testMatrixOperator--------------------------------------------------------------------------------
+* *************************************************
+* Test de l'opérateur 
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = operateur fonctionnel
+* ************************************************/
 static void testMatrixOperatorEqual()
 {
 	CMatrix<int> MAT(2, 2);
@@ -315,6 +528,16 @@ static void testMatrixOperatorEqual()
 	assert(MATCopy(1, 1) == 22);
 }
 
+/**************************************************
+* testMatrixOperator
+* *************************************************
+* Test de l'opérateur 
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = operateur fonctionnel
+* ************************************************/
 static void testMatrixOperatorEquality()
 {
     CMatrix<int> MAT(2, 2);
@@ -346,6 +569,16 @@ static void testMatrixOperatorEquality()
     }
 }
 
+/**************************************************
+* testMatrixOperator
+* *************************************************
+* Test de l'opérateur 
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = operateur fonctionnel
+* ************************************************/
 static void testMatrixOperatorInequality()
 {
 	CMatrix<int> MAT(2, 2);
@@ -377,6 +610,16 @@ static void testMatrixOperatorInequality()
     }
 }
 
+/**************************************************
+* testMatrixOperator
+* *************************************************
+* Test de l'opérateur 
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = operateur fonctionnel
+* ************************************************/
 static void testMatrixOperatorParenthesis()
 {
 	CMatrix<int> MAT(2, 3);
@@ -384,6 +627,16 @@ static void testMatrixOperatorParenthesis()
 	assert(MAT(1,2) == 43);
 }
 
+/**************************************************
+* testMatrixOperator
+* *************************************************
+* Test de l'opérateur 
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : aucun assert déclenché = operateur fonctionnel
+* ************************************************/
 static void testMatrixOperatorStream()
 {
     CMatrix<int> MAT1(2, 2);
@@ -401,6 +654,17 @@ static void testMatrixOperatorStream()
 	cout << MAT2;
 }
 
+
+/**************************************************
+* testMatrix
+* *************************************************
+* Fonction d'appel des tests unitaires des fonctions
+* *************************************************
+* Entrée : 
+* Pré-condition : 
+* Sortie : 
+* Post-condition : Aucune assert déclenchée = librairie fonctionnelle
+* ************************************************/
 void CUnitTest::testMatrix()
 {
 	testMatrixConstructor();
