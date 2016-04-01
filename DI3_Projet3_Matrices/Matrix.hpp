@@ -1,6 +1,34 @@
+/* --------------------------------------------------------------------
+| Copyright (C) 2016 <Amoros Julien> <Seroux Kevin>                    \
+|                                                                      |
+| This program is free software: you can redistribute it and/or modify |
+| it under the terms of the GNU General Public License as published by |
+| the Free Software Foundation, either version 3 of the License, or    |
+| (at your option) any later version.                                  |
+|                                                                      |
+| This program is distributed in the hope that it will be useful,      |
+| but WITHOUT ANY WARRANTY; without even the implied warranty of       |
+| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the         |
+| GNU General Public License for more details.                         |
+|                                                                      |
+| You should have received a copy of the GNU General Public License    |
+| along with this program. If not, see <http://www.gnu.org/licenses/>. |
+|-------------------------------------------------------------------*/
+
 #include <cassert> //TODO: To remove when all the methods are implemented
 #include "Cexception.h"
 //TODO: Fonction qui itére sur les lignes, colonnes avec une fonction callback
+
+#define BEGIN_FOREACH_CELL                                         \
+	unsigned int uiCurrentRow = 0;                                 \
+	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)              \
+	{                                                              \
+		unsigned int uiCurrentColumn = 0;                          \
+		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++) \
+		{
+#define END_FOREACH_CELL                                           \
+	    }                                                          \
+	}                                                              \
 
 using namespace std;
 
@@ -71,16 +99,10 @@ CMatrix<T> CMatrix<T>::operator+(const CMatrix<T>& MATParam) const
 
 	CMatrix<T> MATreturn(uiCountRows, uiCountColumns);
 
-	unsigned int uiCurrentRow = 0;
-	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)
-	{
-		unsigned int uiCurrentColumn = 0;
-		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
-		{
-			MATreturn(uiCurrentRow, uiCurrentColumn) =
-			(*this)(uiCurrentRow, uiCurrentColumn) + MATParam(uiCurrentRow, uiCurrentColumn);
-		}
-	}
+	BEGIN_FOREACH_CELL
+	MATreturn(uiCurrentRow, uiCurrentColumn) = 
+	(*this)(uiCurrentRow, uiCurrentColumn) + MATParam(uiCurrentRow, uiCurrentColumn);
+	END_FOREACH_CELL
 
 	return MATreturn;
 }
@@ -90,17 +112,11 @@ CMatrix<T>& CMatrix<T>::operator+=(const CMatrix<T>& MATParam)
 {
 	if(uiCountRows != MATParam.uiCountRows || uiCountColumns != MATParam.uiCountRows)
 	   throw Cexception(EXC_SIZE_INVALID);
-
-	unsigned int uiCurrentRow = 0;
-	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)
-	{
-		unsigned int uiCurrentColumn = 0;
-		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
-		{
-			(*this)(uiCurrentRow, uiCurrentColumn) =
-			(*this)(uiCurrentRow, uiCurrentColumn) + MATParam(uiCurrentRow, uiCurrentColumn);
-		}
-	}
+	
+	BEGIN_FOREACH_CELL
+	(*this)(uiCurrentRow, uiCurrentColumn) =
+	(*this)(uiCurrentRow, uiCurrentColumn) + MATParam(uiCurrentRow, uiCurrentColumn);
+	END_FOREACH_CELL
 
 	return *this;
 }
@@ -114,16 +130,10 @@ CMatrix<T> CMatrix<T>::operator-(const CMatrix<T>& MATParam) const
 
 	CMatrix<T> MAT2return(uiCountRows, uiCountColumns);
 
-	unsigned int uiCurrentRow = 0;
-	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)
-	{
-		unsigned int uiCurrentColumn = 0;
-		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
-		{
-			MAT2return(uiCurrentRow, uiCurrentColumn) =
-			(*this)(uiCurrentRow, uiCurrentColumn) - MATParam(uiCurrentRow, uiCurrentColumn);
-		}
-	}
+	BEGIN_FOREACH_CELL
+	MAT2return(uiCurrentRow, uiCurrentColumn) =
+	(*this)(	uiCurrentRow, uiCurrentColumn) - MATParam(uiCurrentRow, uiCurrentColumn);
+	END_FOREACH_CELL
 
 	return MAT2return;
 }
@@ -134,15 +144,9 @@ CMatrix<T>& CMatrix<T>::operator-=(const CMatrix<T>& MATParam)
 	if(uiCountRows != MATParam.uiCountRows || uiCountColumns != MATParam.uiCountRows)
 	   throw Cexception(EXC_SIZE_INVALID);
 
-	unsigned int uiCurrentRow = 0;
-	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)
-	{
-		unsigned int uiCurrentColumn = 0;
-		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
-		{
-			(*this)(uiCurrentRow, uiCurrentColumn) -= MATParam(uiCurrentRow, uiCurrentColumn);
-		}
-	}
+	BEGIN_FOREACH_CELL
+	(*this)(uiCurrentRow, uiCurrentColumn) -= MATParam(uiCurrentRow, uiCurrentColumn);
+	END_FOREACH_CELL
 
 	return *this;
 }
@@ -187,15 +191,10 @@ template <class T>
 CMatrix<T> CMatrix<T>::operator*(const T value) const
 {
 	CMatrix<T> MATres(MATgetCountRows(), MATgetCountColumns());
-
-	unsigned int uiloopRow, uiloopColumn;
-    for(uiloopRow = 0; uiloopRow < MATgetCountRows(); uiloopRow++)
-    {
-        for(uiloopColumn = 0; uiloopColumn < MATgetCountColumns(); uiloopColumn++)
-        {
-            MATres(uiloopRow, uiloopColumn) = (*this)(uiloopRow, uiloopColumn) * value;
-        }
-    }
+	
+	BEGIN_FOREACH_CELL
+    MATres(uiCurrentRow, uiCurrentColumn) = (*this)(uiCurrentRow, uiCurrentColumn) * value;
+	END_FOREACH_CELL
 
 	return MATres;
 }
@@ -203,14 +202,9 @@ CMatrix<T> CMatrix<T>::operator*(const T value) const
 template <class T>
 CMatrix<T>& CMatrix<T>::operator*=(const T value)
 {
-	unsigned int uiloopRow, uiloopColumn;
-    for(uiloopRow = 0; uiloopRow < MATgetCountRows(); uiloopRow++)
-    {
-        for(uiloopColumn = 0; uiloopColumn < MATgetCountColumns(); uiloopColumn++)
-        {
-            (*this)(uiloopRow, uiloopColumn) = (*this)(uiloopRow, uiloopColumn) * value;
-        }
-    }
+	BEGIN_FOREACH_CELL
+	(*this)(uiCurrentRow, uiCurrentColumn) = (*this)(uiCurrentRow, uiCurrentColumn) * value;
+	END_FOREACH_CELL
 
 	return *this;
 }
@@ -224,16 +218,10 @@ CMatrix<T> CMatrix<T>::operator/(const T tValue) const
 
 	CMatrix<T> MAT2return(uiCountRows, uiCountColumns);
 
-	unsigned int uiCurrentRow = 0;
-	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)
-	{
-		unsigned int uiCurrentColumn = 0;
-		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
-		{
-			MAT2return(uiCurrentRow, uiCurrentColumn) =
-			(*this)(uiCurrentRow, uiCurrentColumn) / tValue;
-		}
-	}
+	BEGIN_FOREACH_CELL
+	MAT2return(uiCurrentRow, uiCurrentColumn) =
+	(*this)(uiCurrentRow, uiCurrentColumn) / tValue;
+	END_FOREACH_CELL
 
 	return MAT2return;
 }
@@ -244,15 +232,9 @@ CMatrix<T>& CMatrix<T>::operator/=(const T tValue)
 	if(tValue == 0)
 	   throw Cexception(DIVIDE_BY_ZERO);
 
-	unsigned int uiCurrentRow = 0;
-	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)
-	{
-		unsigned int uiCurrentColumn = 0;
-		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
-		{
-			(*this)(uiCurrentRow, uiCurrentColumn) /= tValue;
-		}
-	}
+	BEGIN_FOREACH_CELL
+	(*this)(uiCurrentRow, uiCurrentColumn) /= tValue;
+	END_FOREACH_CELL
 
 	return *this;
 }
@@ -263,14 +245,9 @@ CMatrix<T> CMatrix<T>::MATtranspose()
 {
 	CMatrix<T> MATres(MATgetCountRows(), MATgetCountColumns());
 
-	unsigned int uiloopRow, uiloopColumn;
-    for(uiloopRow = 0; uiloopRow < MATgetCountRows(); uiloopRow++)
-    {
-        for(uiloopColumn = 0; uiloopColumn < MATgetCountColumns(); uiloopColumn++)
-        {
-            MATres(uiloopRow, uiloopColumn) = (*this)(uiloopColumn, uiloopRow);
-        }
-    }
+	BEGIN_FOREACH_CELL
+    MATres(uiloopRow, uiloopColumn) = (*this)(uiloopColumn, uiloopRow);
+	END_FOREACH_CELL
 
 	return MATres;
 }
@@ -278,15 +255,9 @@ CMatrix<T> CMatrix<T>::MATtranspose()
 template <class T>
 CMatrix<T>& CMatrix<T>::operator=(const CMatrix<T>& MATParam)
 {
-	unsigned int uiCurrentRow = 0;
-	for(; uiCurrentRow < uiCountRows; uiCurrentRow++)
-	{
-		unsigned int uiCurrentColumn = 0;
-		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
-		{
-			(*this)(uiCurrentRow, uiCurrentColumn) = MATParam(uiCurrentRow, uiCurrentColumn);
-		}
-	}
+	BEGIN_FOREACH_CELL
+	(*this)(uiCurrentRow, uiCurrentColumn) = MATParam(uiCurrentRow, uiCurrentColumn);
+	END_FOREACH_CELL
 
 	return *this;
 }
@@ -301,15 +272,11 @@ bool CMatrix<T>::operator==(const CMatrix<T>& MATparam)
         || MATgetCountRows() != MATparam.MATgetCountRows())
             throw Cexception(UNCOMPARABLE_MATRIX);
 
-    unsigned int uiloopRow, uiloopColumn;
-    for(uiloopRow = 0; uiloopRow < MATgetCountRows(); uiloopRow++)
-    {
-        for(uiloopColumn = 0; uiloopColumn < MATgetCountColumns(); uiloopColumn++)
-        {
-            if(this->operator()(uiloopRow, uiloopColumn) != MATparam(uiloopRow, uiloopColumn))
-                return false;
-        }
-    }
+	BEGIN_FOREACH_CELL
+	if(this->operator()(uiCurrentRow, uiCurrentColumn) != MATparam(uiCurrentRow, uiCurrentColumn))
+		return false;
+	END_FOREACH_CELL
+
 	return true;
 }
 
@@ -355,17 +322,15 @@ inline unsigned int const CMatrix<T>::MATgetCountColumns() const
 template <class T>
 CMatrix<T> operator*(const T value, const CMatrix<T>& MATparam)
 {
-	//assert(false && "Not Implemented Yet");
-	CMatrix<T> MATres(MATparam.MATgetCountRows(), MATparam.MATgetCountColumns());
+	CMatrix<T> MATres(MATparam.uiCountRows, MATparam.uiCountColumns);
+	
+	int uiCountRows = MATparam.uiCountRows;
+	int uiCountColumns = MATparam.uiCountColumns;
 
-	unsigned int uiloopRow, uiloopColumn;
-    for(uiloopRow = 0; uiloopRow < MATparam.MATgetCountRows(); uiloopRow++)
-    {
-        for(uiloopColumn = 0; uiloopColumn < MATparam.MATgetCountColumns(); uiloopColumn++)
-        {
-            MATres(uiloopRow, uiloopColumn) = MATparam(uiloopRow, uiloopColumn) * value;
-        }
-    }
+	BEGIN_FOREACH_CELL
+	MATres(uiCurrentRow, uiCurrentColumn) = MATparam(uiCurrentRow, uiCurrentColumn) * value;
+	END_FOREACH_CELL
+
 	return MATres;
 }
 
@@ -374,16 +339,12 @@ std::ostream& operator<<(std::ostream& out, const CMatrix<T>& MAT)
 {
     out << '[' << std::endl;
 
-    unsigned int uiCurrentRow = 0;
-	for(uiCurrentRow; uiCurrentRow < MAT.MATgetCountRows(); uiCurrentRow++)
-    {
-		unsigned int uiCurrentColumn = 0;
-        for(; uiCurrentColumn < MAT.MATgetCountColumns(); uiCurrentColumn++)
-        {
-            out << MAT(uiCurrentRow, uiCurrentColumn) << ' ';
-        }
-        out << std::endl;
-    }
+	int uiCountRows = MAT.uiCountRows;
+	int uiCountColumns = MAT.uiCountColumns;
+
+	BEGIN_FOREACH_CELL
+    out << MAT(uiCurrentRow, uiCurrentColumn) << ' ';
+	END_FOREACH_CELL
 
 	out << ']' << std::endl;
 
