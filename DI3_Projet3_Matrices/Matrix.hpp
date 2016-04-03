@@ -267,11 +267,11 @@ CMatrix<T> CMatrix<T>::operator*(const CMatrix<T>& MATparam) const
 {
     unsigned int uiloopRow, uiloopColumn, uiloopAdd, uinbAdd;
 
-    if(MATgetCountColumns() != MATparam.MATgetCountRows())
+    if(MATgetCountColumns() != MATparam.MATgetCountRows())  //Si la multiplication est impossible
         throw Cexception(INVALID_MATRIX_SIZE_FOR_THIS_OPERATION);
 
-    CMatrix<T> MATres(MATgetCountRows(), MATparam.MATgetCountColumns());
-    for(uiloopRow = 0; uiloopRow < MATres.MATgetCountRows(); uiloopRow++)
+    CMatrix<T> MATres(MATgetCountRows(), MATparam.MATgetCountColumns());    //Déclaration de la matrice de résultat
+    for(uiloopRow = 0; uiloopRow < MATres.MATgetCountRows(); uiloopRow++)   //initialisation de la matrice de resultat
     {
         for(uiloopColumn = 0; uiloopColumn < MATres.MATgetCountColumns(); uiloopColumn++)
         {
@@ -281,7 +281,7 @@ CMatrix<T> CMatrix<T>::operator*(const CMatrix<T>& MATparam) const
 
     uinbAdd = MATgetCountColumns();
 
-    for(uiloopRow = 0; uiloopRow < MATres.MATgetCountRows(); uiloopRow++)
+    for(uiloopRow = 0; uiloopRow < MATres.MATgetCountRows(); uiloopRow++)   //Calcul du résultat
     {
         for(uiloopColumn = 0; uiloopColumn < MATres.MATgetCountColumns(); uiloopColumn++)
         {
@@ -368,8 +368,7 @@ CMatrix<T> CMatrix<T>::operator/(const T tValue) const
 	CMatrix<T> MAT2return(uiCountRows, uiCountColumns);
 
 	BEGIN_FOREACH_CELL
-	MAT2return(uiCurrentRow, uiCurrentColumn) =
-	(*this)(uiCurrentRow, uiCurrentColumn) / tValue;
+	MAT2return(uiCurrentRow, uiCurrentColumn) = (*this)(uiCurrentRow, uiCurrentColumn) / tValue;
 	END_FOREACH_CELL
 
 	return MAT2return;
@@ -467,8 +466,8 @@ bool CMatrix<T>::operator==(const CMatrix<T>& MATparam)
 {
 	//assert(false && "Not Implemented Yet");
 
-    if(MATgetCountColumns() != MATparam.MATgetCountColumns()
-        || MATgetCountRows() != MATparam.MATgetCountRows())
+    if(MATgetCountColumns() != MATparam.MATgetCountColumns()    //Test si les matrices sont comparables
+       || MATgetCountRows() != MATparam.MATgetCountRows())
             throw Cexception(UNCOMPARABLE_MATRIX);
 
 	BEGIN_FOREACH_CELL
@@ -514,7 +513,7 @@ choisie, par référence
 template <class T>
 inline T& CMatrix<T>::operator()(unsigned int uiRow, unsigned int uiColumn)
 {
-	if(uiRow >= this->MATgetCountRows() || uiColumn >= this->MATgetCountColumns())
+	if(uiRow >= this->MATgetCountRows() || uiColumn >= this->MATgetCountColumns())  //Si l'index n'est pas valide
         throw Cexception(INDEX_OUT_OF_BOUND);
 
 	return *ppptMatData[uiRow][uiColumn];
@@ -536,7 +535,7 @@ choisie
 template <class T>
 inline T CMatrix<T>::operator()(unsigned int uiRow, unsigned int uiColumn) const
 {
-	if(uiRow >= this->MATgetCountRows() || uiColumn >= this->MATgetCountColumns())
+	if(uiRow >= this->MATgetCountRows() || uiColumn >= this->MATgetCountColumns()) //Si index non valide
         throw Cexception(INDEX_OUT_OF_BOUND);
 
 	return *ppptMatData[uiRow][uiColumn];

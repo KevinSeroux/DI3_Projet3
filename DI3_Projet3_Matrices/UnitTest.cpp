@@ -83,7 +83,7 @@ static void testMatrixConstructor()
 * ************************************************/
 static void testMatrixConstructorByCopy()
 {
-	CMatrix<int> MAT(3, 2);
+	CMatrix<int> MAT(3, 2); //Déclaration matrice de test
 	MAT(0, 0) = 11;
 	MAT(0, 1) = 12;
 	MAT(1, 0) = 21;
@@ -95,9 +95,9 @@ static void testMatrixConstructorByCopy()
 
 	MAT(1, 0) = 42;//To test if there is a copy of value and not a copy of address
 
-	assert(MATCopy.MATgetCountRows() == 3);
+	assert(MATCopy.MATgetCountRows() == 3); //Test des attributs
 	assert(MATCopy.MATgetCountColumns() == 2);
-	assert(MATCopy(0, 0) == 11);
+	assert(MATCopy(0, 0) == 11);    //Test des valeurs
 	assert(MATCopy(0, 1) == 12);
 	assert(MATCopy(1, 0) == 21);
 	assert(MATCopy(1, 1) == 22);
@@ -118,7 +118,7 @@ fonctionnelle
 * ************************************************/
 static void testMatrixOperatorAdd()
 {
-	CMatrix<int> MAT1(2, 2);
+	CMatrix<int> MAT1(2, 2);    //Déclaration matrices de test
 	MAT1(0, 0) = 111;
 	MAT1(0, 1) = 112;
 	MAT1(1, 0) = 121;
@@ -133,7 +133,7 @@ static void testMatrixOperatorAdd()
 	CMatrix<int> MAT3(3, 2);
 	try
 	{
-	    MAT2 = MAT2 + MAT3;
+	    MAT2 = MAT2 + MAT3; //Should throw an exception
 	    assert(false);
 	}
 	catch(Cexception&){}
@@ -141,7 +141,7 @@ static void testMatrixOperatorAdd()
 	CMatrix<int> MAT(2, 2);
 	MAT = MAT1 + MAT2;
 
-	assert(MAT(0, 0) == 322);
+	assert(MAT(0, 0) == 322);   //Test des valeurs
 	assert(MAT(0, 1) == 324);
 	assert(MAT(1, 0) == 342);
 	assert(MAT(1, 1) == 344);
@@ -161,7 +161,7 @@ fonctionnel
 * ************************************************/
 static void testMatrixOperatorAddEqual()
 {
-	CMatrix<int> MAT1(2, 2);
+	CMatrix<int> MAT1(2, 2);    //Déclaration matrices de test
 	MAT1(0, 0) = 111;
 	MAT1(0, 1) = 112;
 	MAT1(1, 0) = 121;
@@ -180,7 +180,7 @@ static void testMatrixOperatorAddEqual()
 	MAT(1, 1) = 0;
 	MAT += MAT1 += MAT2;
 
-	assert(MAT(0, 0) == 322);
+	assert(MAT(0, 0) == 322);   //Test des valeurs
 	assert(MAT(0, 1) == 324);
 	assert(MAT(1, 0) == 342);
 	assert(MAT(1, 1) == 344);
@@ -189,7 +189,7 @@ static void testMatrixOperatorAddEqual()
 
 	try
 	{
-	    MAT1 += MAT3;
+	    MAT1 += MAT3; //Should throw an exception
 	    assert(false);
 	}
 	catch(Cexception& e){ }
@@ -208,7 +208,7 @@ fonctionnelle
 * ************************************************/
 static void testMatrixOperatorSub()
 {
-	CMatrix<int> MAT1(2, 2);
+	CMatrix<int> MAT1(2, 2);    //Déclaration matrices de test
 	MAT1(0, 0) = 1;
 	MAT1(0, 1) = 2;
 	MAT1(1, 0) = 3;
@@ -223,7 +223,7 @@ static void testMatrixOperatorSub()
 	CMatrix<int> MAT(2, 2);
 	MAT = MAT2 - MAT1;
 
-	assert(MAT(0, 0) == 3);
+	assert(MAT(0, 0) == 3); //Test des valeurs
 	assert(MAT(0, 1) == 1);
 	assert(MAT(1, 0) == -1);
 	assert(MAT(1, 1) == -3);
@@ -232,7 +232,7 @@ static void testMatrixOperatorSub()
 
 	try
 	{
-	    MAT1 = MAT1 - MAT3;
+	    MAT1 = MAT1 - MAT3; //Should throw an exception
 	    assert(false);
 	}
 	catch(Cexception& e){ }
@@ -251,7 +251,7 @@ fonctionnel
 * ************************************************/
 static void testMatrixOperatorSubEqual()
 {
-	CMatrix<int> MAT(2, 2);
+	CMatrix<int> MAT(2, 2); //Déclaration matrices de test
 	MAT(0, 0) = 1;
 	MAT(0, 1) = 2;
 	MAT(1, 0) = 3;
@@ -265,7 +265,7 @@ static void testMatrixOperatorSubEqual()
 
 	MAT -= MAT2;
 
-	assert(MAT(0, 0) == -3);
+	assert(MAT(0, 0) == -3);    //Test des valeurs
 	assert(MAT(0, 1) == -1);
 	assert(MAT(1, 0) == 1);
 	assert(MAT(1, 1) == 3);
@@ -274,7 +274,7 @@ static void testMatrixOperatorSubEqual()
 
 	try
 	{
-	    MAT = MAT - MAT3;
+	    MAT = MAT - MAT3; //Should throw an exception
 	    assert(false);
 	}
 	catch(Cexception& e){ }
@@ -293,7 +293,7 @@ fonctionnel pour les matrices
 * ************************************************/
 static void testMatrixOperatorMultMat()
 {
-    CMatrix<int> O(2, 2);
+    CMatrix<int> O(2, 2);   //Déclaration matrices de test
 	O(0, 0) = 0;
 	O(0, 1) = 0;
 	O(1, 0) = 0;
@@ -343,7 +343,7 @@ static void testMatrixOperatorMultMat()
 
 	try
 	{
-		MAT = MAT * MATLig;	//Test de l'exception matrices non compatibles
+		MAT = MAT * MATLig;	 //Should throw an exception
 		assert(false);
 	}
 	catch(Cexception&){}
@@ -362,7 +362,7 @@ fonctionnel pour un objet T constant
 * ************************************************/
 static void testMatrixOperatorMultConst()
 {
-    CMatrix<int> MAT(2, 2);
+    CMatrix<int> MAT(2, 2); //Déclaration matrices de test
 	MAT(0, 0) = 11;
 	MAT(0, 1) = 12;
 	MAT(1, 0) = 21;
@@ -390,7 +390,7 @@ fonctionnel pour un objet T constant
 * ************************************************/
 static void testMatrixOperatorMultEqualConst()
 {
-    CMatrix<int> MAT(2, 2);
+    CMatrix<int> MAT(2, 2); //Déclaration matrice de test
 	MAT(0, 0) = 11;
 	MAT(0, 1) = 12;
 	MAT(1, 0) = 21;
@@ -417,7 +417,7 @@ fonctionnel (niveau valeurs de retour)
 * ************************************************/
 static void testMatrixOperatorDiv()
 {
-	CMatrix<int> MAT2(2, 2);
+	CMatrix<int> MAT2(2, 2);    //Déclaration matrice de test
 	MAT2(0, 0) = 0;
 	MAT2(0, 1) = -2;
 	MAT2(1, 0) = 4;
@@ -445,7 +445,7 @@ fonctionnel (niveau lancement d'exceptions)
 * ************************************************/
 static void testMatrixOperatorDivExc()
 {
-	CMatrix<int> MAT2(2, 2);
+	CMatrix<int> MAT2(2, 2);    //Déclaration matrice de test
 	MAT2(0, 0) = 0;
 	MAT2(0, 1) = 2;
 	MAT2(1, 0) = 4;
@@ -476,7 +476,7 @@ operateur /= fonctionnel (niveau valeurs)
 * ************************************************/
 static void testMatrixOperatorDivEqual()
 {
-	CMatrix<int> MAT(2, 2);
+	CMatrix<int> MAT(2, 2); //Déclaration matrice de test
 	MAT(0, 0) = 0;
 	MAT(0, 1) = -2;
 	MAT(1, 0) = 4;
@@ -503,7 +503,7 @@ operateur /= fonctionnel (niveau lancement d'exceptions)
 * ************************************************/
 static void testMatrixOperatorDivEqualExc()
 {
-	CMatrix<int> MAT(2, 2);
+	CMatrix<int> MAT(2, 2); //Déclaration matrice de test
 	MAT(0, 0) = 0;
 	MAT(0, 1) = 2;
 	MAT(1, 0) = 4;
@@ -511,7 +511,7 @@ static void testMatrixOperatorDivEqualExc()
 
 	try
 	{
-		MAT /= 0; //Should throw an exception
+		MAT /= 0;   //Should throw an exception
 		assert(false);
 	}
 	catch(Cexception& e)
@@ -532,7 +532,7 @@ static void testMatrixOperatorDivEqualExc()
 * ************************************************/
 static void testMatrixOperatorEqual()
 {
-	CMatrix<int> MAT(2, 2);
+	CMatrix<int> MAT(2, 2); //Déclaration matrice de test
 	MAT(0, 0) = 11;
 	MAT(0, 1) = 12;
 	MAT(1, 0) = 21;
@@ -541,7 +541,7 @@ static void testMatrixOperatorEqual()
 	CMatrix<int> MATCopy(2,2);
 	MATCopy = MAT;
 
-	assert(MATCopy(0, 0) == 11);
+	assert(MATCopy(0, 0) == 11);    //Test des valeurs
 	assert(MATCopy(0, 1) == 12);
 	assert(MATCopy(1, 0) == 21);
 	assert(MATCopy(1, 1) == 22);
@@ -559,7 +559,7 @@ static void testMatrixOperatorEqual()
 * ************************************************/
 static void testMatrixOperatorEquality()
 {
-    CMatrix<int> MAT(2, 2);
+    CMatrix<int> MAT(2, 2); //Déclaration matrices de test
 	MAT(0, 0) = 11;
 	MAT(0, 1) = 12;
 	MAT(1, 0) = 21;
@@ -575,12 +575,12 @@ static void testMatrixOperatorEquality()
 	MAT3(0, 0) = 11;
 	MAT3(0, 1) = 12;
 
-    if(!(MAT == MAT))
+    if(!(MAT == MAT))   //Test des valeurs
         assert(false);
     if(MAT == MAT2)
         assert(false);
     try{
-        MAT == MAT3;
+        MAT == MAT3; //Should throw an exception
         assert(false);
     }catch(Cexception& e)
     {
@@ -600,7 +600,7 @@ static void testMatrixOperatorEquality()
 * ************************************************/
 static void testMatrixOperatorInequality()
 {
-	CMatrix<int> MAT(2, 2);
+	CMatrix<int> MAT(2, 2); //Déclaration matrices de test
 	MAT(0, 0) = 11;
 	MAT(0, 1) = 12;
 	MAT(1, 0) = 21;
@@ -616,12 +616,12 @@ static void testMatrixOperatorInequality()
 	MAT3(0, 0) = 11;
 	MAT3(0, 1) = 12;
 
-    if(MAT != MAT)
+    if(MAT != MAT)  //Test des valeurs
         assert(false);
     if(!(MAT != MAT2))
         assert(false);
     try{
-        MAT != MAT3;
+        MAT != MAT3; //Should throw an exception
         assert(false);
     }catch(Cexception& e)
     {
@@ -641,7 +641,7 @@ static void testMatrixOperatorInequality()
 * ************************************************/
 static void testMatrixOperatorParenthesis()
 {
-	CMatrix<int> MAT(2, 3);
+	CMatrix<int> MAT(2, 3); //Déclaration matrice de test
 	MAT(1,2) = 43;
 	assert(MAT(1,2) == 43);
 }
@@ -654,22 +654,23 @@ static void testMatrixOperatorParenthesis()
 * Entrée :
 * Pré-condition :
 * Sortie :
-* Post-condition : aucun assert déclenché = operateur << fonctionnel
+* Post-condition : 2 matrices affichées
 * ************************************************/
 static void testMatrixOperatorStream()
 {
-    CMatrix<int> MAT1(2, 2);
+    CMatrix<int> MAT1(2, 2);    //Déclaration matrices de test
 	MAT1(0, 0) = 111;
 	MAT1(0, 1) = 112;
 	MAT1(1, 0) = 121;
 	MAT1(1, 1) = 122;
-	cout << MAT1;
 
 	CMatrix<double> MAT2(2, 2);
 	MAT2(0, 0) = .111;
 	MAT2(0, 1) = 1.12;
 	MAT2(1, 0) = 12.1;
 	MAT2(1, 1) = 122.;
+
+	cout << MAT1;   //Test affichage
 	cout << MAT2;
 }
 
