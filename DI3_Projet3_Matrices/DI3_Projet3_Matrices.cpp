@@ -26,50 +26,64 @@
 #include "Matrix.h"
 #include "UnitTest.h"
 
+//#define UNITTEST
+
 int main(int argc, char* argv[])
 {
-    int iloop;
-    double dvalue;
-    CMatrix<double>** tabMat = new CMatrix<double>*[argc]; //VS does not support VLA
+	// On exécute les tests unitaires en mode DEBUG
+	#ifdef UNITTEST
+	CUnitTest tests;
+	tests.testMatrix();
+	#endif
 
-	/*CUnitTest tests;
-	tests.testMatrix();*/
 
-    for(iloop = 1; iloop <= argc; iloop++)
-        tabMat[iloop - 1] = &CFileLoaderMatrix::FLMload(argv[iloop]);
+	if(argc >= 2)
+	{
+		int iloop;
+		double dvalue;
+		CMatrix<double>** tabMat = new CMatrix<double>*[argc - 1]; //VS ne supporte pas les VLA
 
-    scanf("c = ?", &dvalue);    //Demande valeur à l'utilisateur
+		//Charge tous les fichiers rentrés en paramètre
+		for(iloop = 1; iloop < argc; iloop++)
+		{
+			CMatrix<double> pMATtmp = CFileLoaderMatrix::FLMload(argv[iloop]);
+			tabMat[iloop - 1] = new CMatrix<double>(pMATtmp);
+		}
 
-    for(iloop = 0; iloop < argc; iloop++)   //Afficher toute les matrices * c
-        cout << "M" << iloop << (*tabMat[iloop] * dvalue);
+		cin >> dvalue; //Demande valeur à l'utilisateur
 
-    for(iloop = 0; iloop < argc; iloop++)   //Afficher toute les matrices / c
-        cout << "M" << iloop << (*tabMat[iloop] / dvalue);
+		for(iloop = 1; iloop < argc; iloop++)   //Afficher toute les matrices * c
+			cout << "M" << iloop << (*tabMat[iloop - 1] * dvalue);
+
+		for(iloop = 1; iloop < argc; iloop++)   //Afficher toute les matrices / c
+			cout << "M" << iloop << (*tabMat[iloop - 1] / dvalue);
 	
-    CMatrix<double> MATres(tabMat[0]->MATgetCountRows(), tabMat[0]->MATgetCountColumns());
-    MATres = *tabMat[0];
-    for(iloop = 1; iloop < argc; iloop++)   //Afficher la somme des matrices
-        MATres += *tabMat[iloop];
-    cout << "M1+M2+M3+...=" << MATres;
+		CMatrix<double> MATres(tabMat[0]->MATgetCountRows(), tabMat[0]->MATgetCountColumns());
+		MATres = *tabMat[0];
+		for(iloop = 2; iloop < argc; iloop++)   //Afficher la somme des matrices
+			MATres += *tabMat[iloop - 1];
+		cout << "M1+M2+M3+...=" << MATres;
 
-    MATres = *tabMat[0];
-    for(iloop = 1; iloop < argc; iloop++)   //Afficher le résultat de M1-M2+M3-...
-    {
-        if(iloop % 2 == 1)
-            MATres -= *tabMat[iloop];
-        if(iloop % 2 == 0)
-            MATres += *tabMat[iloop];
-    }
-    cout << "M1-M2+M3-...=" << MATres;
+		MATres = *tabMat[0];
+		for(iloop = 2; iloop < argc; iloop++)   //Afficher le résultat de M1-M2+M3-...
+		{
+			if(iloop % 2 == 1)
+				MATres -= *tabMat[iloop - 1];
+			if(iloop % 2 == 0)
+				MATres += *tabMat[iloop - 1];
+		}
+		cout << "M1-M2+M3-...=" << MATres;
 
-    MATres = *tabMat[0];
-    for(iloop = 1; iloop < argc; iloop++)   //Afficher le résultat du produit des matrices
-        MATres = MATres * *tabMat[iloop];
-    cout << "M1*M2*M3*...=" << MATres;
+		MATres = *tabMat[0];
+		for(iloop = 1; iloop < argc; iloop++)   //Afficher le résultat du produit des matrices
+			MATres = MATres * *tabMat[iloop - 1];
+		cout << "M1*M2*M3*...=" << MATres;
 
-	delete[] tabMat;
+		delete[] tabMat;
+	}
 
-	#ifdef _DEBUG //Display memleaks
+	//On affiche les éventuelles fuites mémoires
+	#ifdef _DEBUG
 	_CrtDumpMemoryLeaks();
 	#endif
 

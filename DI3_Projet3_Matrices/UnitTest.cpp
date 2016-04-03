@@ -193,7 +193,7 @@ static void testMatrixOperatorAddEqual()
 	    MAT1 += MAT3; //Should throw an exception
 	    assert(false);
 	}
-	catch(Cexception& e){ }
+	catch(Cexception&){ }
 }
 
 /**************************************************
@@ -233,10 +233,10 @@ static void testMatrixOperatorSub()
 
 	try
 	{
-	    MAT1 = MAT1 - MAT3; //Should throw an exception
+	    MAT1 = MAT1 - MAT3; //Devrait jeter une exception
 	    assert(false);
 	}
-	catch(Cexception& e){ }
+	catch(Cexception&){ }
 }
 
 /**************************************************
@@ -275,10 +275,10 @@ static void testMatrixOperatorSubEqual()
 
 	try
 	{
-	    MAT = MAT - MAT3; //Should throw an exception
+	    MAT = MAT - MAT3; //Devrait jeter une exception
 	    assert(false);
 	}
-	catch(Cexception& e){ }
+	catch(Cexception&) {}
 }
 
 /**************************************************
@@ -522,6 +522,37 @@ static void testMatrixOperatorDivEqualExc()
 }
 
 /**************************************************
+* testMatrixTranspose
+* *************************************************
+* Test de la méthode de transposition
+* *************************************************
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché = transposition == fonctionnel
+* ************************************************/
+static void testMatrixTranspose()
+{
+	CMatrix<int> MAT(3, 2);
+	MAT(0, 0) = 11;
+	MAT(0, 1) = 12;
+	MAT(1, 0) = 21;
+	MAT(1, 1) = 22;
+	MAT(2, 0) = 31;
+	MAT(2, 1) = 32;
+
+	CMatrix<int> MATtransposed = MAT.MATtranspose();
+	assert(MATtransposed.MATgetCountRows() == 2);
+	assert(MATtransposed.MATgetCountColumns() == 3);
+	assert(MATtransposed(0, 0) == 11);
+	assert(MATtransposed(0, 1) == 21);
+	assert(MATtransposed(0, 2) == 31);
+	assert(MATtransposed(1, 0) == 12);
+	assert(MATtransposed(1, 1) == 22);
+	assert(MATtransposed(1, 2) == 32);
+}
+
+/**************************************************
 * testMatrixOperatorEqual
 * *************************************************
 * Test de l'opérateur =
@@ -583,7 +614,7 @@ static void testMatrixOperatorEquality()
     try{
         MAT == MAT3; //Should throw an exception
         assert(false);
-    }catch(Cexception& e)
+    }catch(Cexception&)
     {
         //Gestion de l'exception
     }
@@ -624,10 +655,7 @@ static void testMatrixOperatorInequality()
     try{
         MAT != MAT3; //Should throw an exception
         assert(false);
-    }catch(Cexception& e)
-    {
-        //Gestion de l'exception
-    }
+    } catch(Cexception&) {}
 }
 
 /**************************************************
@@ -701,6 +729,7 @@ void CUnitTest::testMatrix()
 	testMatrixOperatorDivExc();
 	testMatrixOperatorDivEqual();
 	testMatrixOperatorDivEqualExc();
+	testMatrixTranspose();
 	testMatrixOperatorEqual();
 	testMatrixOperatorEquality();
 	testMatrixOperatorInequality();

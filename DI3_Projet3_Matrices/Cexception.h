@@ -29,11 +29,9 @@ la levée d'exceptions.
 #define FILE_OPENING_ERROR 1
 #define NOT_SUPPORTED_DATA_TYPE 2
 #define ZERO_SIZED_MATRIX 3
-#define INVALID_MATRIX_SIZE_FOR_THIS_OPERATION 4
-#define UNCOMPARABLE_MATRIX 5
-#define INDEX_OUT_OF_BOUND 6
-#define EXC_SIZE_INVALID 7
-#define DIVIDE_BY_ZERO 8
+#define INDEX_OUT_OF_BOUND 4
+#define SIZE_INVALID 5
+#define DIVIDE_BY_ZERO 6
 
 class Cexception
 {

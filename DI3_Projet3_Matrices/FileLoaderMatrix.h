@@ -79,7 +79,7 @@ public:
 * Post-condition : la matrice renvoyée est celle 
 contenue dans le fichier texte
 * ************************************************/
-	static CMatrix<double> FLMload(char const* pcPath);
+	static CMatrix<double> FLMload(char const* const pcPath);
 };
 
 #endif //FILELOADERMAT2D_H

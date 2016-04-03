@@ -26,7 +26,6 @@ addition, soustraction, multiplication, division etc...)
 **************************************************/
 
 #include "Cexception.h"
-//TODO: Fonction qui itére sur les lignes, colonnes avec une fonction callback
 
 #define BEGIN_FOREACH_CELL                                         \
 	unsigned int uiCurrentRow = 0;                                 \
@@ -86,10 +85,10 @@ CMatrix<T>::CMatrix(unsigned int uiCountRows, unsigned int uiCountColumns)
 matrice passée en paramètre
 * ************************************************/
 template <class T>
-CMatrix<T>::CMatrix(const CMatrix<T>& MATParam)
+CMatrix<T>::CMatrix(const CMatrix<T>& MATparam)
 {
-	uiCountRows = MATParam.uiCountRows;
-	uiCountColumns = MATParam.uiCountColumns;
+	uiCountRows = MATparam.uiCountRows;
+	uiCountColumns = MATparam.uiCountColumns;
 
 	ppptMatData = new T**[uiCountRows];
 
@@ -101,7 +100,7 @@ CMatrix<T>::CMatrix(const CMatrix<T>& MATParam)
 		for(; uiCurrentColumn < uiCountColumns; uiCurrentColumn++)
 		{
 			ppptMatData[uiCurrentRow][uiCurrentColumn] = new T;
-			(*this)(uiCurrentRow, uiCurrentColumn) = MATParam(uiCurrentRow, uiCurrentColumn);
+			(*this)(uiCurrentRow, uiCurrentColumn) = MATparam(uiCurrentRow, uiCurrentColumn);
 		}
 	}
 }
@@ -147,16 +146,16 @@ est définie
 est impossible (matrices de taille différentes).
 * ************************************************/
 template <class T>
-CMatrix<T> CMatrix<T>::operator+(const CMatrix<T>& MATParam) const
+CMatrix<T> CMatrix<T>::operator+(const CMatrix<T>& MATparam) const
 {
-	if(uiCountRows != MATParam.uiCountRows || uiCountColumns != MATParam.uiCountRows)
-	   throw Cexception(EXC_SIZE_INVALID);
+	if(uiCountRows != MATparam.uiCountRows || uiCountColumns != MATparam.uiCountRows)
+	   throw Cexception(SIZE_INVALID);
 
 	CMatrix<T> MATreturn(uiCountRows, uiCountColumns);
 
 	BEGIN_FOREACH_CELL
 	MATreturn(uiCurrentRow, uiCurrentColumn) =
-	(*this)(uiCurrentRow, uiCurrentColumn) + MATParam(uiCurrentRow, uiCurrentColumn);
+	(*this)(uiCurrentRow, uiCurrentColumn) + MATparam(uiCurrentRow, uiCurrentColumn);
 	END_FOREACH_CELL
 
 	return MATreturn;
@@ -176,14 +175,14 @@ est définie
 matrice passée en paramètre.
 * ************************************************/
 template <class T>
-CMatrix<T>& CMatrix<T>::operator+=(const CMatrix<T>& MATParam)
+CMatrix<T>& CMatrix<T>::operator+=(const CMatrix<T>& MATparam)
 {
-	if(uiCountRows != MATParam.uiCountRows || uiCountColumns != MATParam.uiCountRows)
-	   throw Cexception(EXC_SIZE_INVALID);
+	if(uiCountRows != MATparam.uiCountRows || uiCountColumns != MATparam.uiCountRows)
+	   throw Cexception(SIZE_INVALID);
 
 	BEGIN_FOREACH_CELL
 	(*this)(uiCurrentRow, uiCurrentColumn) =
-	(*this)(uiCurrentRow, uiCurrentColumn) + MATParam(uiCurrentRow, uiCurrentColumn);
+	(*this)(uiCurrentRow, uiCurrentColumn) + MATparam(uiCurrentRow, uiCurrentColumn);
 	END_FOREACH_CELL
 
 	return *this;
@@ -205,16 +204,16 @@ Lance une exception si la soustraction est impossible
 (matrices de taille différentes).
 * ************************************************/
 template <class T>
-CMatrix<T> CMatrix<T>::operator-(const CMatrix<T>& MATParam) const
+CMatrix<T> CMatrix<T>::operator-(const CMatrix<T>& MATparam) const
 {
-	if(uiCountRows != MATParam.uiCountRows || uiCountColumns != MATParam.uiCountRows)
-	   throw Cexception(EXC_SIZE_INVALID);
+	if(uiCountRows != MATparam.uiCountRows || uiCountColumns != MATparam.uiCountRows)
+	   throw Cexception(SIZE_INVALID);
 
 	CMatrix<T> MAT2return(uiCountRows, uiCountColumns);
 
 	BEGIN_FOREACH_CELL
 	MAT2return(uiCurrentRow, uiCurrentColumn) =
-	(*this)(	uiCurrentRow, uiCurrentColumn) - MATParam(uiCurrentRow, uiCurrentColumn);
+	(*this)(	uiCurrentRow, uiCurrentColumn) - MATparam(uiCurrentRow, uiCurrentColumn);
 	END_FOREACH_CELL
 
 	return MAT2return;
@@ -236,13 +235,13 @@ si la soustraction est impossible (matrices de
 taille différentes).
 * ************************************************/
 template <class T>
-CMatrix<T>& CMatrix<T>::operator-=(const CMatrix<T>& MATParam)
+CMatrix<T>& CMatrix<T>::operator-=(const CMatrix<T>& MATparam)
 {
-	if(uiCountRows != MATParam.uiCountRows || uiCountColumns != MATParam.uiCountRows)
-	   throw Cexception(EXC_SIZE_INVALID);
+	if(uiCountRows != MATparam.uiCountRows || uiCountColumns != MATparam.uiCountRows)
+	   throw Cexception(SIZE_INVALID);
 
 	BEGIN_FOREACH_CELL
-	(*this)(uiCurrentRow, uiCurrentColumn) -= MATParam(uiCurrentRow, uiCurrentColumn);
+	(*this)(uiCurrentRow, uiCurrentColumn) -= MATparam(uiCurrentRow, uiCurrentColumn);
 	END_FOREACH_CELL
 
 	return *this;
@@ -267,8 +266,8 @@ CMatrix<T> CMatrix<T>::operator*(const CMatrix<T>& MATparam) const
 {
     unsigned int uiloopRow, uiloopColumn, uiloopAdd, uinbAdd;
 
-    if(MATgetCountColumns() != MATparam.MATgetCountRows())  //Si la multiplication est impossible
-        throw Cexception(INVALID_MATRIX_SIZE_FOR_THIS_OPERATION);
+	if(uiCountColumns != MATparam.uiCountRows)  //Si la multiplication est impossible
+        throw Cexception(SIZE_INVALID);
 
     CMatrix<T> MATres(MATgetCountRows(), MATparam.MATgetCountColumns());    //Déclaration de la matrice de résultat
     for(uiloopRow = 0; uiloopRow < MATres.MATgetCountRows(); uiloopRow++)   //initialisation de la matrice de resultat
@@ -313,7 +312,7 @@ passée en paramètre.
 template <class T>
 CMatrix<T> CMatrix<T>::operator*(const T value) const
 {
-	CMatrix<T> MATres(MATgetCountRows(), MATgetCountColumns());
+	CMatrix<T> MATres(uiCountRows, uiCountColumns);
 
 	BEGIN_FOREACH_CELL
     MATres(uiCurrentRow, uiCurrentColumn) = (*this)(uiCurrentRow, uiCurrentColumn) * value;
@@ -416,10 +415,12 @@ CMatrix<T>& CMatrix<T>::operator/=(const T tValue)
 template <class T>
 CMatrix<T> CMatrix<T>::MATtranspose()
 {
-	CMatrix<T> MATres(MATgetCountRows(), MATgetCountColumns());
+	CMatrix<T> MATres(uiCountColumns, uiCountRows);
 
 	BEGIN_FOREACH_CELL
-    MATres(uiloopRow, uiloopColumn) = (*this)(uiloopColumn, uiloopRow);
+	/*uiCurrentRow et Column sont des variables de boucles sur les éléments de la matrice courante
+	donc nous devons inverser ces deux index pour la matrice résultat */
+	MATres(uiCurrentColumn, uiCurrentRow) = (*this)(uiCurrentRow, uiCurrentColumn);
 	END_FOREACH_CELL
 
 	return MATres;
@@ -438,10 +439,14 @@ CMatrix<T> CMatrix<T>::MATtranspose()
 le contenu de la matrice passée en paramètre.
 * ************************************************/
 template <class T>
-CMatrix<T>& CMatrix<T>::operator=(const CMatrix<T>& MATParam)
+CMatrix<T>& CMatrix<T>::operator=(const CMatrix<T>& MATparam)
 {
+	//On autorise pas que 2 matrices de taille différentes puissent être mise à égalité
+	if(uiCountRows != MATparam.uiCountRows || uiCountColumns != MATparam.uiCountRows)
+	   throw Cexception(SIZE_INVALID);
+
 	BEGIN_FOREACH_CELL
-	(*this)(uiCurrentRow, uiCurrentColumn) = MATParam(uiCurrentRow, uiCurrentColumn);
+	(*this)(uiCurrentRow, uiCurrentColumn) = MATparam(uiCurrentRow, uiCurrentColumn);
 	END_FOREACH_CELL
 
 	return *this;
@@ -464,9 +469,9 @@ ne sont pas comparables.
 template <class T>
 bool CMatrix<T>::operator==(const CMatrix<T>& MATparam)
 {
-    if(MATgetCountColumns() != MATparam.MATgetCountColumns()    //Test si les matrices sont comparables
-       || MATgetCountRows() != MATparam.MATgetCountRows())
-            throw Cexception(UNCOMPARABLE_MATRIX);
+	// Test si les matrices sont comparable
+	if(uiCountRows != MATparam.uiCountRows || uiCountColumns != MATparam.uiCountRows)
+	   throw Cexception(SIZE_INVALID);
 
 	BEGIN_FOREACH_CELL
 	if(this->operator()(uiCurrentRow, uiCurrentColumn) != MATparam(uiCurrentRow, uiCurrentColumn))
@@ -490,9 +495,9 @@ sont différentes, faux sinon, lance une exception
 si elles ne sont pas comparables
 * ************************************************/
 template <class T>
-inline bool CMatrix<T>::operator!=(const CMatrix<T>& MATParam)
+inline bool CMatrix<T>::operator!=(const CMatrix<T>& MATparam)
 {
-	return !operator==(MATParam);
+	return !operator==(MATparam);
 }
 
 /**************************************************
@@ -592,8 +597,9 @@ CMatrix<T> operator*(const T value, const CMatrix<T>& MATparam)
 {
 	CMatrix<T> MATres(MATparam.uiCountRows, MATparam.uiCountColumns);
 
-	int uiCountRows = MATparam.uiCountRows;
-	int uiCountColumns = MATparam.uiCountColumns;
+	//Pour la boucle FOREACH
+	unsigned int uiCountRows = MATparam.uiCountRows;
+	unsigned int uiCountColumns = MATparam.uiCountColumns;
 
 	BEGIN_FOREACH_CELL
 	MATres(uiCurrentRow, uiCurrentColumn) = MATparam(uiCurrentRow, uiCurrentColumn) * value;
@@ -618,14 +624,16 @@ flux de sortie en paramètre
 template <class T>
 std::ostream& operator<<(std::ostream& out, const CMatrix<T>& MAT)
 {
+	unsigned int uiloopRow, uiloopColumn;
     out << '[' << std::endl;
 
-	int uiCountRows = MAT.uiCountRows;
-	int uiCountColumns = MAT.uiCountColumns;
+    for(uiloopRow = 0; uiloopRow < MAT.uiCountRows; uiloopRow++)
+    {
+        for(uiloopColumn = 0; uiloopColumn < MAT.uiCountColumns; uiloopColumn++)
+            out << MAT(uiloopRow, uiloopColumn) << ' ';
 
-	BEGIN_FOREACH_CELL
-    out << MAT(uiCurrentRow, uiCurrentColumn) << ' ';
-	END_FOREACH_CELL
+        out << std::endl;
+	}
 
 	out << ']' << std::endl;
 
