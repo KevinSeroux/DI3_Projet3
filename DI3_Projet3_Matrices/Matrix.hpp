@@ -15,7 +15,16 @@
 | along with this program. If not, see <http://www.gnu.org/licenses/>. |
 |-------------------------------------------------------------------*/
 
-#include <cassert> //TODO: To remove when all the methods are implemented
+/**************************************************
+Titre: Classe pour la gestion de Matrices de type
+quelconque
+***************************************************
+Corps de la Classe CMatrix
+Permet de créer des Matrices et d'effectuer des
+opérations élémentaires dessus (transposition,
+addition, soustraction, multiplication, division etc...)
+**************************************************/
+
 #include "Cexception.h"
 //TODO: Fonction qui itére sur les lignes, colonnes avec une fonction callback
 
@@ -32,6 +41,18 @@
 
 using namespace std;
 
+/**************************************************
+* CMatrix
+* *************************************************
+* Constructeur
+* *************************************************
+* Entrée: nombre de lignes, nombre de colonnes
+* Pré-condition :
+* Sortie :
+* Post-condition : la matrice est créée avec le bon
+nombre de lignes et de colonnes, lance une exception
+si une des taille est à 0.
+* ************************************************/
 template <class T>
 CMatrix<T>::CMatrix(unsigned int uiCountRows, unsigned int uiCountColumns)
 {
@@ -53,6 +74,17 @@ CMatrix<T>::CMatrix(unsigned int uiCountRows, unsigned int uiCountColumns)
 	}
 }
 
+/**************************************************
+* CMatrix
+* *************************************************
+* Constructeur de recopie
+* *************************************************
+* Entrée: matrice
+* Pré-condition :
+* Sortie :
+* Post-condition : instanciatoin d'une copie de la
+matrice passée en paramètre
+* ************************************************/
 template <class T>
 CMatrix<T>::CMatrix(const CMatrix<T>& MATParam)
 {
@@ -74,6 +106,16 @@ CMatrix<T>::CMatrix(const CMatrix<T>& MATParam)
 	}
 }
 
+/**************************************************
+* ~CMatrix
+* *************************************************
+* Destructeur par défaut
+* *************************************************
+* Entrée:
+* Pré-condition :
+* Sortie :
+* Post-condition : Détruit la matrice correctement
+* ************************************************/
 template <class T>
 CMatrix<T>::~CMatrix()
 {
@@ -90,7 +132,20 @@ CMatrix<T>::~CMatrix()
 	delete[] ppptMatData;
 }
 
-
+/**************************************************
+* operator+
+* *************************************************
+* Surcharge de l'addition
+* *************************************************
+* Entrée: matrice
+* Pré-condition : les matrice doivent être additionables,
+la surcharge de l'addition des objets de type T
+est définie
+* Sortie : matrice résultat
+* Post-condition : renvoie la matrice correspondant
+à cette addition. Lance une exception si l'addition
+est impossible (matrices de taille différentes).
+* ************************************************/
 template <class T>
 CMatrix<T> CMatrix<T>::operator+(const CMatrix<T>& MATParam) const
 {
@@ -100,19 +155,32 @@ CMatrix<T> CMatrix<T>::operator+(const CMatrix<T>& MATParam) const
 	CMatrix<T> MATreturn(uiCountRows, uiCountColumns);
 
 	BEGIN_FOREACH_CELL
-	MATreturn(uiCurrentRow, uiCurrentColumn) = 
+	MATreturn(uiCurrentRow, uiCurrentColumn) =
 	(*this)(uiCurrentRow, uiCurrentColumn) + MATParam(uiCurrentRow, uiCurrentColumn);
 	END_FOREACH_CELL
 
 	return MATreturn;
 }
 
+/**************************************************
+* operator+=
+* *************************************************
+* Surchage de l'association additive
+* *************************************************
+* Entrée: matrice
+* Pré-condition : on peut additionner les matrices,
+la surcharge de l'addition des objets de type T
+est définie
+* Sortie :
+* Post-condition : ajoute à la matrice actuelle la
+matrice passée en paramètre.
+* ************************************************/
 template <class T>
 CMatrix<T>& CMatrix<T>::operator+=(const CMatrix<T>& MATParam)
 {
 	if(uiCountRows != MATParam.uiCountRows || uiCountColumns != MATParam.uiCountRows)
 	   throw Cexception(EXC_SIZE_INVALID);
-	
+
 	BEGIN_FOREACH_CELL
 	(*this)(uiCurrentRow, uiCurrentColumn) =
 	(*this)(uiCurrentRow, uiCurrentColumn) + MATParam(uiCurrentRow, uiCurrentColumn);
@@ -121,7 +189,21 @@ CMatrix<T>& CMatrix<T>::operator+=(const CMatrix<T>& MATParam)
 	return *this;
 }
 
-
+/**************************************************
+* operator-
+* *************************************************
+* Surcharge de la soustraction
+* *************************************************
+* Entrée: matrice
+* Pré-condition : on peut soustraire ces 2 matrices,
+la surcharge de la soustraction des objets de type T
+est définie
+* Sortie : matrice résultat
+* Post-condition : revoie le résutat de la matrice
+actuelle moins la matrice passée en paramètre.
+Lance une exception si la soustraction est impossible
+(matrices de taille différentes).
+* ************************************************/
 template <class T>
 CMatrix<T> CMatrix<T>::operator-(const CMatrix<T>& MATParam) const
 {
@@ -138,6 +220,21 @@ CMatrix<T> CMatrix<T>::operator-(const CMatrix<T>& MATParam) const
 	return MAT2return;
 }
 
+/**************************************************
+* operator-=
+* *************************************************
+* Surcharge de l'association soustractive
+* *************************************************
+* Entrée: matrice
+* Pré-condition : on peut soustraire les matrices,
+la surcharge de la soustraction des objets de type T
+est définie
+* Sortie :
+* Post-condition : soustrait à la matrice actuelle
+la matrice passée en paramètre. Lance une exception
+si la soustraction est impossible (matrices de
+taille différentes).
+* ************************************************/
 template <class T>
 CMatrix<T>& CMatrix<T>::operator-=(const CMatrix<T>& MATParam)
 {
@@ -151,8 +248,20 @@ CMatrix<T>& CMatrix<T>::operator-=(const CMatrix<T>& MATParam)
 	return *this;
 }
 
-
-//TODO: Optimiser
+/**************************************************
+* operator*
+* *************************************************
+* Surcharge de la multiplication par une matrice
+* *************************************************
+* Entrée: matrice
+* Pré-condition : les matrices sont multipliable,
+la surcharge de la multiplication et l'addition des
+objets de type T est définie
+* Sortie : matrice résultat
+* Post-condition : renvoie le résultat de la
+multiplication des deux matrices. Lance une exception
+si elle ne sont pas multipliables.
+* ************************************************/
 template <class T>
 CMatrix<T> CMatrix<T>::operator*(const CMatrix<T>& MATparam) const
 {
@@ -187,11 +296,25 @@ CMatrix<T> CMatrix<T>::operator*(const CMatrix<T>& MATparam) const
 	return MATres;
 }
 
+/**************************************************
+* operator*
+* *************************************************
+* Surcharge de la multiplication par un objet de type T
+* *************************************************
+* Entrée: objet constant de type T
+* Pré-condition : la surcharge de la multiplication
+des objets de type T est définie, la matrice est
+multipliable par l'objet en paramètre
+* Sortie : matrice résultat
+* Post-condition : renvoie le résultat de la
+multiplication de la matrice actuelle par la matrice
+passée en paramètre.
+* ************************************************/
 template <class T>
 CMatrix<T> CMatrix<T>::operator*(const T value) const
 {
 	CMatrix<T> MATres(MATgetCountRows(), MATgetCountColumns());
-	
+
 	BEGIN_FOREACH_CELL
     MATres(uiCurrentRow, uiCurrentColumn) = (*this)(uiCurrentRow, uiCurrentColumn) * value;
 	END_FOREACH_CELL
@@ -199,6 +322,20 @@ CMatrix<T> CMatrix<T>::operator*(const T value) const
 	return MATres;
 }
 
+/**************************************************
+* operator*=
+* *************************************************
+* Surcharge de l'association multiplicative
+* *************************************************
+* Entrée: objet constant de type T
+* Pré-condition : la surcharge de la multiplication
+des objets de type T est définie, la matrice est
+multipliable par l'objet en paramètre
+* Sortie :
+* Post-condition : on stocke dans la matrice actuelle
+le résultat de la multiplication par l'objet passé
+en paramètre.
+* ************************************************/
 template <class T>
 CMatrix<T>& CMatrix<T>::operator*=(const T value)
 {
@@ -209,7 +346,19 @@ CMatrix<T>& CMatrix<T>::operator*=(const T value)
 	return *this;
 }
 
-
+/**************************************************
+* operator/
+* *************************************************
+* Surcharge de la division par un objet de type T
+* *************************************************
+* Entrée: objet constant de type T
+* Pré-condition : la matrice doit être divisible par
+le paramètre, la surcharge de la division des objets
+de type T doit être définie
+* Sortie : matrice résultat
+* Post-condition : retourne le résultat de la division
+de la matrice par l'objet passé en paramètre.
+* ************************************************/
 template <class T>
 CMatrix<T> CMatrix<T>::operator/(const T tValue) const
 {
@@ -226,6 +375,21 @@ CMatrix<T> CMatrix<T>::operator/(const T tValue) const
 	return MAT2return;
 }
 
+/**************************************************
+* operator/=
+* *************************************************
+* Surcharge de l'association avec division par un
+objet de type T
+* *************************************************
+* Entrée: Objet constant de type T
+* Pré-condition : la matrice doit être divisible par
+l'objet en paramètre. La surcharge de la division des
+objets de type T doit être définie.
+* Sortie :
+* Post-condition : Stocke dans la matrice actuelle
+le résultat de la division de la matrice par l'objet
+en paramètre.
+* ************************************************/
 template <class T>
 CMatrix<T>& CMatrix<T>::operator/=(const T tValue)
 {
@@ -239,7 +403,17 @@ CMatrix<T>& CMatrix<T>::operator/=(const T tValue)
 	return *this;
 }
 
-
+/**************************************************
+* MATtranspose
+* *************************************************
+* Renvoie la matrice transposée
+* *************************************************
+* Entrée:
+* Pré-condition :
+* Sortie : Matrice transposée
+* Post-condition : renvoie une nouvelle matrice égale
+à la transposée de la matrice actuelle.
+* ************************************************/
 template <class T>
 CMatrix<T> CMatrix<T>::MATtranspose()
 {
@@ -252,6 +426,18 @@ CMatrix<T> CMatrix<T>::MATtranspose()
 	return MATres;
 }
 
+/**************************************************
+* operator=
+* *************************************************
+* surcharge de l'opérateur d'affectation
+* *************************************************
+* Entrée: matrice
+* Pré-condition : la surcharge de l'opérateur = doit
+être définie pour les objets de type T
+* Sortie :
+* Post-condition : stocke dans la matrice courante
+le contenu de la matrice passée en paramètre.
+* ************************************************/
 template <class T>
 CMatrix<T>& CMatrix<T>::operator=(const CMatrix<T>& MATParam)
 {
@@ -262,7 +448,20 @@ CMatrix<T>& CMatrix<T>::operator=(const CMatrix<T>& MATParam)
 	return *this;
 }
 
-
+/**************************************************
+* operator==
+* *************************************************
+* Surcharge de l'opérateur de test d'égalité
+* *************************************************
+* Entrée: matrice
+* Pré-condition : les matrices sont comparable
+(même taille), la surcharge de l'opérateur == doit
+être défini pour les objets de type T
+* Sortie : booléen
+* Post-condition : renvoie faux si les matrices sont
+différentes, vrai sinon, lance une exception si elles
+ne sont pas comparables.
+* ************************************************/
 template <class T>
 bool CMatrix<T>::operator==(const CMatrix<T>& MATparam)
 {
@@ -280,13 +479,38 @@ bool CMatrix<T>::operator==(const CMatrix<T>& MATparam)
 	return true;
 }
 
+/**************************************************
+* operator!=
+* *************************************************
+* Surcharge de l'opérateur !=
+* *************************************************
+* Entrée: matrice
+* Pré-condition : la surcharge de l'opérateur ==
+doit être définie pour les objets de type T
+* Sortie : booléen
+* Post-condition : renvoie vrai si les matrices
+sont différentes, faux sinon, lance une exception
+si elles ne sont pas comparables
+* ************************************************/
 template <class T>
 inline bool CMatrix<T>::operator!=(const CMatrix<T>& MATParam)
 {
 	return !operator==(MATParam);
 }
 
-
+/**************************************************
+* operator()
+* *************************************************
+* Permet de stocker des valeurs
+* *************************************************
+* Entrée: numéro ligne, numéro colonne
+* Pré-condition :
+* Sortie : valeur de la case cherché (par référence)
+* Post-condition : renvoie une exception si
+l'emplacement recherché n'est pas dans le tableau
+de données, sinon renvoie la valeur de la case
+choisie, par référence
+* ************************************************/
 template <class T>
 inline T& CMatrix<T>::operator()(unsigned int uiRow, unsigned int uiColumn)
 {
@@ -296,6 +520,19 @@ inline T& CMatrix<T>::operator()(unsigned int uiRow, unsigned int uiColumn)
 	return *ppptMatData[uiRow][uiColumn];
 }
 
+/**************************************************
+* operator()
+* *************************************************
+* Permet d'obtenir une valeure
+* *************************************************
+* Entrée: numéro ligne, numéro colonne
+* Pré-condition :
+* Sortie : valeur de la case cherché
+* Post-condition : renvoie une exception si
+l'emplacement recherché n'est pas dans le tableau
+de données, sinon renvoie la valeur de la case
+choisie
+* ************************************************/
 template <class T>
 inline T CMatrix<T>::operator()(unsigned int uiRow, unsigned int uiColumn) const
 {
@@ -305,13 +542,32 @@ inline T CMatrix<T>::operator()(unsigned int uiRow, unsigned int uiColumn) const
 	return *ppptMatData[uiRow][uiColumn];
 }
 
-
+/**************************************************
+* MATgetCountRows
+* *************************************************
+* Accesseur au nombre de lignes
+* *************************************************
+* Entrée:
+* Pré-condition :
+* Sortie : nombre de lignes
+* Post-condition : renvoie le nombre de lignes
+* ************************************************/
 template <class T>
 inline unsigned int const CMatrix<T>::MATgetCountRows() const
 {
 	return uiCountRows;
 }
 
+/**************************************************
+* MATgetCountColumns
+* *************************************************
+* Accesseur au nombre de colonnes
+* *************************************************
+* Entrée:
+* Pré-condition :
+* Sortie : nombre de colonnes
+* Post-condition : renvoie le nombre de colonnes
+* ************************************************/
 template <class T>
 inline unsigned int const CMatrix<T>::MATgetCountColumns() const
 {
@@ -319,11 +575,26 @@ inline unsigned int const CMatrix<T>::MATgetCountColumns() const
 }
 
 //Free functions
+/**************************************************
+* operator*
+* *************************************************
+* Surcharge de l'opérateur de multiplication entre
+un objet de type T et une matrice
+* *************************************************
+* Entrée: Objet de type T, matrice d'objets de type T
+* Pré-condition : la matrice passée en paramètre peut
+être multipliée par l'objet passé en paramètre, la
+surcharge de la multiplication est définie pour les
+objets de type T
+* Sortie : matrice résultat
+* Post-condition : renvoie la matrice résultant de
+cette opération
+* ************************************************/
 template <class T>
 CMatrix<T> operator*(const T value, const CMatrix<T>& MATparam)
 {
 	CMatrix<T> MATres(MATparam.uiCountRows, MATparam.uiCountColumns);
-	
+
 	int uiCountRows = MATparam.uiCountRows;
 	int uiCountColumns = MATparam.uiCountColumns;
 
@@ -334,6 +605,19 @@ CMatrix<T> operator*(const T value, const CMatrix<T>& MATparam)
 	return MATres;
 }
 
+/**************************************************
+* operator<<
+* *************************************************
+* Surcharge de l'opérateur de flux de sortie (permet
+d'afficher la matrice comme n'importe quel autre objet)
+* *************************************************
+* Entrée: flux de sortie, matrice
+* Pré-condition : la surcharge de l'opérateur de flux
+de sortie doit être définie pour les objets de type T
+* Sortie : flux de sortie
+* Post-condition : la matrice est écrite dans le
+flux de sortie en paramètre
+* ************************************************/
 template <class T>
 std::ostream& operator<<(std::ostream& out, const CMatrix<T>& MAT)
 {
