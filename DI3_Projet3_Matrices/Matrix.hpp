@@ -464,8 +464,6 @@ ne sont pas comparables.
 template <class T>
 bool CMatrix<T>::operator==(const CMatrix<T>& MATparam)
 {
-	//assert(false && "Not Implemented Yet");
-
     if(MATgetCountColumns() != MATparam.MATgetCountColumns()    //Test si les matrices sont comparables
        || MATgetCountRows() != MATparam.MATgetCountRows())
             throw Cexception(UNCOMPARABLE_MATRIX);

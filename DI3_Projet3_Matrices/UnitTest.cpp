@@ -22,6 +22,7 @@ Corps de la Classe CUnitTest
 Permet de tester les fonctions et surcharges de CMatrix
 **************************************************/
 
+#include <cassert>
 #include "UnitTest.h"
 #include "Cexception.h"
 

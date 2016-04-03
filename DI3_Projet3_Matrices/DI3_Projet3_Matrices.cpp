@@ -1,4 +1,4 @@
-/* --------------------------------------------------------------------
+﻿/* --------------------------------------------------------------------
 | Copyright (C) 2016 <Amoros Julien> <Seroux Kevin>                    \
 |                                                                      |
 | This program is free software: you can redistribute it and/or modify |
@@ -30,42 +30,44 @@ int main(int argc, char* argv[])
 {
     int iloop;
     double dvalue;
-    CMatrix<double> MATres;
-    CMatrix<double> tabMat[argc];
+    CMatrix<double>** tabMat = new CMatrix<double>*[argc]; //VS does not support VLA
 
 	/*CUnitTest tests;
 	tests.testMatrix();*/
 
     for(iloop = 1; iloop <= argc; iloop++)
-        tabMat[i-1] = CFileLoaderMatrix::FLMload(argv[i]);
+        tabMat[iloop - 1] = &CFileLoaderMatrix::FLMload(argv[iloop]);
 
     scanf("c = ?", &dvalue);    //Demande valeur à l'utilisateur
 
     for(iloop = 0; iloop < argc; iloop++)   //Afficher toute les matrices * c
-        cout << "M" << iloop << (tabMat[i] * dvalue);
+        cout << "M" << iloop << (*tabMat[iloop] * dvalue);
 
     for(iloop = 0; iloop < argc; iloop++)   //Afficher toute les matrices / c
-        cout << "M" << iloop << (tabMat[i] / dvalue);
-
-    MATres = tabMat[0];
+        cout << "M" << iloop << (*tabMat[iloop] / dvalue);
+	
+    CMatrix<double> MATres(tabMat[0]->MATgetCountRows(), tabMat[0]->MATgetCountColumns());
+    MATres = *tabMat[0];
     for(iloop = 1; iloop < argc; iloop++)   //Afficher la somme des matrices
-        MATres += tabMat[i];
+        MATres += *tabMat[iloop];
     cout << "M1+M2+M3+...=" << MATres;
 
-    MATres = tabMat[0];
+    MATres = *tabMat[0];
     for(iloop = 1; iloop < argc; iloop++)   //Afficher le résultat de M1-M2+M3-...
     {
-        if(iloop%2 == 1)
-            MATres -= tabMat[i];
-        if(iloop%2 == 0)
-            MATres += tabMat[i];
+        if(iloop % 2 == 1)
+            MATres -= *tabMat[iloop];
+        if(iloop % 2 == 0)
+            MATres += *tabMat[iloop];
     }
     cout << "M1-M2+M3-...=" << MATres;
 
-    MATres = tabMat[0];
+    MATres = *tabMat[0];
     for(iloop = 1; iloop < argc; iloop++)   //Afficher le résultat du produit des matrices
-        MATres *= tabMat[i];
+        MATres = MATres * *tabMat[iloop];
     cout << "M1*M2*M3*...=" << MATres;
+
+	delete[] tabMat;
 
 	#ifdef _DEBUG //Display memleaks
 	_CrtDumpMemoryLeaks();
