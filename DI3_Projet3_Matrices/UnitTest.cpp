@@ -30,9 +30,9 @@ Permet de tester les fonctions et surcharges de CMatrix
 * *************************************************
 * Constructeur par défaut
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
+* Entrée :
+* Pré-condition :
+* Sortie :
 * Post-condition : Instanciation de CUnitTest
 * ************************************************/
 CUnitTest::CUnitTest()
@@ -44,9 +44,9 @@ CUnitTest::CUnitTest()
 * *************************************************
 * Destructeur par défaut
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
+* Entrée :
+* Pré-condition :
+* Sortie :
 * Post-condition : Destruction de l'instanciation de CUnitTest
 * ************************************************/
 CUnitTest::~CUnitTest()
@@ -58,10 +58,10 @@ CUnitTest::~CUnitTest()
 * *************************************************
 * Test des constructeurs
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
-* Post-condition : aucun assert déclenché = Constructeurs 
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché = Constructeurs
 fonctionnel
 * ************************************************/
 static void testMatrixConstructor()
@@ -76,9 +76,9 @@ static void testMatrixConstructor()
 * *************************************************
 * Test de constructeur de recopie
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
+* Entrée :
+* Pré-condition :
+* Sortie :
 * Post-condition : aucun assert déclenché = fonctionnel
 * ************************************************/
 static void testMatrixConstructorByCopy()
@@ -92,7 +92,7 @@ static void testMatrixConstructorByCopy()
 	MAT(2, 1) = 32;
 
 	CMatrix<int> MATCopy(MAT);
-	
+
 	MAT(1, 0) = 42;//To test if there is a copy of value and not a copy of address
 
 	assert(MATCopy.MATgetCountRows() == 3);
@@ -110,10 +110,10 @@ static void testMatrixConstructorByCopy()
 * *************************************************
 * Test de l'opérateur +
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
-* Post-condition : aucun assert déclenché = addition 
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché = addition
 fonctionnelle
 * ************************************************/
 static void testMatrixOperatorAdd()
@@ -153,10 +153,10 @@ static void testMatrixOperatorAdd()
 * *************************************************
 * Test de l'opérateur +=
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
-* Post-condition : aucun assert déclenché = operateur += 
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché = operateur +=
 fonctionnel
 * ************************************************/
 static void testMatrixOperatorAddEqual()
@@ -200,10 +200,10 @@ static void testMatrixOperatorAddEqual()
 * *************************************************
 * Test de l'opérateur -
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
-* Post-condition : aucun assert déclenché = soustraction 
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché = soustraction
 fonctionnelle
 * ************************************************/
 static void testMatrixOperatorSub()
@@ -243,9 +243,9 @@ static void testMatrixOperatorSub()
 * *************************************************
 * Test de l'opérateur -=
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
+* Entrée :
+* Pré-condition :
+* Sortie :
 * Post-condition : aucun assert déclenché = operateur -=
 fonctionnel
 * ************************************************/
@@ -285,10 +285,10 @@ static void testMatrixOperatorSubEqual()
 * *************************************************
 * Test de operator*(CMatrix<T>)
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
-* Post-condition : aucun assert déclenché = operateur * 
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché = operateur *
 fonctionnel pour les matrices
 * ************************************************/
 static void testMatrixOperatorMultMat()
@@ -354,10 +354,10 @@ static void testMatrixOperatorMultMat()
 * *************************************************
 * Test de operator*(const T)
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
-* Post-condition : aucun assert déclenché = operateur * 
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché = operateur *
 fonctionnel pour un objet T constant
 * ************************************************/
 static void testMatrixOperatorMultConst()
@@ -382,10 +382,10 @@ static void testMatrixOperatorMultConst()
 * *************************************************
 * Test de operator*=(const T)
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
-* Post-condition : aucun assert déclenché = operateur *= 
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché = operateur *=
 fonctionnel pour un objet T constant
 * ************************************************/
 static void testMatrixOperatorMultEqualConst()
@@ -409,11 +409,11 @@ static void testMatrixOperatorMultEqualConst()
 * *************************************************
 * Test du bon retour de l'opérateur /(const T)
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
+* Entrée :
+* Pré-condition :
+* Sortie :
 * Post-condition : aucun assert déclenché = operateur /
-fonctionnel
+fonctionnel (niveau valeurs de retour)
 * ************************************************/
 static void testMatrixOperatorDiv()
 {
@@ -437,11 +437,11 @@ static void testMatrixOperatorDiv()
 * *************************************************
 * Test de du bon envoi des exceptions de l'opérateur /(const T)
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
-* Post-condition : aucun assert déclenché = operateur / 
-fonctionnel
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché = operateur /
+fonctionnel (niveau lancement d'exceptions)
 * ************************************************/
 static void testMatrixOperatorDivExc()
 {
@@ -468,10 +468,11 @@ static void testMatrixOperatorDivExc()
 * *************************************************
 * Test du bon retour l'opérateur /=(const T)
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
-* Post-condition : aucun assert déclenché = operateur /= fonctionnel
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché =
+operateur /= fonctionnel (niveau valeurs)
 * ************************************************/
 static void testMatrixOperatorDivEqual()
 {
@@ -494,10 +495,11 @@ static void testMatrixOperatorDivEqual()
 * *************************************************
 * Test du retour d'exception de l'opérateur /=(const T)
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
-* Post-condition : aucun assert déclenché = operateur /= fonctionnel
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché =
+operateur /= fonctionnel (niveau lancement d'exceptions)
 * ************************************************/
 static void testMatrixOperatorDivEqualExc()
 {
@@ -519,14 +521,14 @@ static void testMatrixOperatorDivEqualExc()
 }
 
 /**************************************************
-* testMatrixOperator--------------------------------------------------------------------------------
+* testMatrixOperatorEqual
 * *************************************************
-* Test de l'opérateur 
+* Test de l'opérateur =
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
-* Post-condition : aucun assert déclenché = operateur fonctionnel
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché = operateur "=" fonctionnel
 * ************************************************/
 static void testMatrixOperatorEqual()
 {
@@ -546,14 +548,14 @@ static void testMatrixOperatorEqual()
 }
 
 /**************************************************
-* testMatrixOperator
+* testMatrixOperatorEquality
 * *************************************************
-* Test de l'opérateur 
+* Test de l'opérateur ==
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
-* Post-condition : aucun assert déclenché = operateur fonctionnel
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché = operateur == fonctionnel
 * ************************************************/
 static void testMatrixOperatorEquality()
 {
@@ -587,14 +589,14 @@ static void testMatrixOperatorEquality()
 }
 
 /**************************************************
-* testMatrixOperator
+* testMatrixOperatorInequality
 * *************************************************
-* Test de l'opérateur 
+* Test de l'opérateur !=
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
-* Post-condition : aucun assert déclenché = operateur fonctionnel
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché = operateur != fonctionnel
 * ************************************************/
 static void testMatrixOperatorInequality()
 {
@@ -628,14 +630,14 @@ static void testMatrixOperatorInequality()
 }
 
 /**************************************************
-* testMatrixOperator
+* testMatrixOperator()
 * *************************************************
-* Test de l'opérateur 
+* Test de l'opérateur () (en set et en get)
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
-* Post-condition : aucun assert déclenché = operateur fonctionnel
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché = operateur () fonctionnel
 * ************************************************/
 static void testMatrixOperatorParenthesis()
 {
@@ -645,14 +647,14 @@ static void testMatrixOperatorParenthesis()
 }
 
 /**************************************************
-* testMatrixOperator
+* testMatrixOperatorStream
 * *************************************************
-* Test de l'opérateur 
+* Test de l'opérateur <<
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
-* Post-condition : aucun assert déclenché = operateur fonctionnel
+* Entrée :
+* Pré-condition :
+* Sortie :
+* Post-condition : aucun assert déclenché = operateur << fonctionnel
 * ************************************************/
 static void testMatrixOperatorStream()
 {
@@ -677,9 +679,9 @@ static void testMatrixOperatorStream()
 * *************************************************
 * Fonction d'appel des tests unitaires des fonctions
 * *************************************************
-* Entrée : 
-* Pré-condition : 
-* Sortie : 
+* Entrée :
+* Pré-condition :
+* Sortie :
 * Post-condition : Aucune assert déclenchée = librairie fonctionnelle
 * ************************************************/
 void CUnitTest::testMatrix()
