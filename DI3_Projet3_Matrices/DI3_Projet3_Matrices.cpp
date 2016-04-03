@@ -28,15 +28,44 @@
 
 int main(int argc, char* argv[])
 {
-	CUnitTest tests;
-	tests.testMatrix();
+    int iloop;
+    double dvalue;
+    CMatrix<double> MATres;
+    CMatrix<double> tabMat[argc];
 
-	char const * str = "mat1.txt";
-    //cout << argc;
-    //cout << argv[1] << '\n';
-    //cout << argv[2] << '\n';
+	/*CUnitTest tests;
+	tests.testMatrix();*/
 
-	CFileLoaderMatrix::FLMload(str);
+    for(iloop = 1; iloop <= argc; iloop++)
+        tabMat[i-1] = CFileLoaderMatrix::FLMload(argv[i]);
+
+    scanf("c = ?", &dvalue);    //Demande valeur à l'utilisateur
+
+    for(iloop = 0; iloop < argc; iloop++)   //Afficher toute les matrices * c
+        cout << "M" << iloop << (tabMat[i] * dvalue);
+
+    for(iloop = 0; iloop < argc; iloop++)   //Afficher toute les matrices / c
+        cout << "M" << iloop << (tabMat[i] / dvalue);
+
+    MATres = tabMat[0];
+    for(iloop = 1; iloop < argc; iloop++)   //Afficher la somme des matrices
+        MATres += tabMat[i];
+    cout << "M1+M2+M3+...=" << MATres;
+
+    MATres = tabMat[0];
+    for(iloop = 1; iloop < argc; iloop++)   //Afficher le résultat de M1-M2+M3-...
+    {
+        if(iloop%2 == 1)
+            MATres -= tabMat[i];
+        if(iloop%2 == 0)
+            MATres += tabMat[i];
+    }
+    cout << "M1-M2+M3-...=" << MATres;
+
+    MATres = tabMat[0];
+    for(iloop = 1; iloop < argc; iloop++)   //Afficher le résultat du produit des matrices
+        MATres *= tabMat[i];
+    cout << "M1*M2*M3*...=" << MATres;
 
 	#ifdef _DEBUG //Display memleaks
 	_CrtDumpMemoryLeaks();
