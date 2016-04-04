@@ -15,7 +15,7 @@
 | along with this program. If not, see <http://www.gnu.org/licenses/>. |
 |-------------------------------------------------------------------*/
 
-#ifdef _DEBUG //To detect memory leaks
+#ifdef _DEBUG //Pour détecter les fuites mémoires
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
@@ -26,14 +26,14 @@
 #include "Matrix.h"
 #include "UnitTest.h"
 
-#define UNITTEST
-
 int main(int argc, char* argv[])
 {
 	// On exécute les tests unitaires en mode DEBUG
-	#ifdef UNITTEST
+	#ifdef _DEBUG
+	cout << "DEBUT TEST UNITAIRE" << endl << "===================" << endl;
 	CUnitTest tests;
 	tests.testMatrix();
+	cout << "FIN TEST UNITAIRE" << endl << "=================" << endl;
 	#endif
 
 
@@ -50,6 +50,7 @@ int main(int argc, char* argv[])
 			tabMat[iloop - 1] = new CMatrix<double>(pMATtmp);
 		}
 
+		cout << "Entrez une valeur par laquelle matrices en argument vont être multiplié/divisé : ";
 		cin >> dvalue; //Demande valeur à l'utilisateur
 
 		for(iloop = 1; iloop < argc; iloop++)   //Afficher toute les matrices * c
@@ -84,6 +85,8 @@ int main(int argc, char* argv[])
 			delete tabMat[iloop - 1];
 		delete[] tabMat;
 	}
+	else
+		cout << "Merci de rentrer des fichiers de matrice en paramètre" << endl;
 
 	//On affiche les éventuelles fuites mémoires
 	#ifdef _DEBUG
