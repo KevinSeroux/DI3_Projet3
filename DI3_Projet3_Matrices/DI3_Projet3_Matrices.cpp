@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 			tabMat[iloop - 1] = new CMatrix<double>(pMATtmp);
 		}
 
-		cout << "Entrez une valeur par laquelle matrices en argument vont être multiplié/divisé : ";
+		cout << "Entrez une valeur par laquelle les matrices en argument vont etre multiplie/divise : ";
 		cin >> dvalue; //Demande valeur à l'utilisateur
 
 		for(iloop = 1; iloop < argc; iloop++)   //Afficher toute les matrices * c
