@@ -26,13 +26,6 @@ la levée d'exceptions.
 #ifndef CEXCEPTION_H
 #define CEXCEPTION_H
 
-#define FILE_OPENING_ERROR 1
-#define NOT_SUPPORTED_DATA_TYPE 2
-#define ZERO_SIZED_MATRIX 3
-#define INDEX_OUT_OF_BOUND 4
-#define SIZE_INVALID 5
-#define DIVIDE_BY_ZERO 6
-
 class Cexception
 {
 	//Attribut

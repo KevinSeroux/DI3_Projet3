@@ -26,7 +26,7 @@
 #include "Matrix.h"
 #include "UnitTest.h"
 
-//#define UNITTEST
+#define UNITTEST
 
 int main(int argc, char* argv[])
 {
@@ -79,6 +79,9 @@ int main(int argc, char* argv[])
 			MATres = MATres * *tabMat[iloop - 1];
 		cout << "M1*M2*M3*...=" << MATres;
 
+		
+		for(iloop = 1; iloop < argc; iloop++)
+			delete tabMat[iloop - 1];
 		delete[] tabMat;
 	}
 

@@ -25,6 +25,11 @@ opérations élémentaires dessus (transposition,
 addition, soustraction, multiplication, division etc...)
 **************************************************/
 
+#define ZERO_SIZED_MATRIX 3
+#define INDEX_OUT_OF_BOUND 4
+#define SIZE_INVALID 5
+#define DIVIDE_BY_ZERO 6
+
 #ifndef MATRIX_H
 #define MATRIX_H
 
@@ -62,7 +67,7 @@ si une des taille est à 0.
 * Entrée: matrice
 * Pré-condition :
 * Sortie :
-* Post-condition : instanciatoin d'une copie de la
+* Post-condition : instanciation d'une copie de la
 matrice passée en paramètre
 * ************************************************/
 	CMatrix(const CMatrix<T>&);

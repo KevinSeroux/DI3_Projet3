@@ -32,6 +32,9 @@ appelable comme cela:
 #ifndef FILELOADERMATRIX_H
 #define FILELOADERMATRIX_H
 
+#define FILE_OPENING_ERROR 1
+#define NOT_SUPPORTED_DATA_TYPE 2
+
 #include <iostream>
 #include <fstream>
 #include "Matrix.h"

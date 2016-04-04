@@ -181,8 +181,7 @@ CMatrix<T>& CMatrix<T>::operator+=(const CMatrix<T>& MATparam)
 	   throw Cexception(SIZE_INVALID);
 
 	BEGIN_FOREACH_CELL
-	(*this)(uiCurrentRow, uiCurrentColumn) =
-	(*this)(uiCurrentRow, uiCurrentColumn) + MATparam(uiCurrentRow, uiCurrentColumn);
+	(*this)(uiCurrentRow, uiCurrentColumn) += MATparam(uiCurrentRow, uiCurrentColumn);
 	END_FOREACH_CELL
 
 	return *this;
@@ -339,7 +338,7 @@ template <class T>
 CMatrix<T>& CMatrix<T>::operator*=(const T value)
 {
 	BEGIN_FOREACH_CELL
-	(*this)(uiCurrentRow, uiCurrentColumn) = (*this)(uiCurrentRow, uiCurrentColumn) * value;
+	(*this)(uiCurrentRow, uiCurrentColumn) *= value;
 	END_FOREACH_CELL
 
 	return *this;
