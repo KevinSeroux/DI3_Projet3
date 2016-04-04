@@ -36,7 +36,6 @@ int main(int argc, char* argv[])
 	cout << "FIN TEST UNITAIRE" << endl << "=================" << endl;
 	#endif
 
-
 	if(argc >= 2)
 	{
 		int iloop;

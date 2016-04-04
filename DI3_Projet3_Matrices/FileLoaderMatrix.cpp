@@ -39,8 +39,11 @@ des informations COHERENTES et de type double.
 contenue dans le fichier texte
 * ************************************************/
 CMatrix<double> CFileLoaderMatrix::FLMload(char const* const pcPath){
-	assert(pcPath != 0);
-
+	assert(pcPath != 0); //Assertion car c'est une erreur de dev et pas de runtime
+	
+	char const DOUBLE[] = "double";
+	size_t const cptypeLength = 7;
+	char cptype[cptypeLength];
 	unsigned int uiloop, uiloopRow, uiloopColumn;
 	char cloop;
 	int inbLigne;
@@ -50,10 +53,6 @@ CMatrix<double> CFileLoaderMatrix::FLMload(char const* const pcPath){
 
 	if(fichier)  // si l'ouverture a réussi
 	{
-		char const DOUBLE[] = "double";
-		size_t const cptypeLength = 7;
-		char cptype[cptypeLength];
-
 		fichier.seekg(12); //positionnement au début du type
 
 		fichier.get(cptype, cptypeLength); //stockage du type
@@ -88,6 +87,6 @@ CMatrix<double> CFileLoaderMatrix::FLMload(char const* const pcPath){
 		return MATres;
 	}
     else  // En cas de problème d'ouverture
-		cerr << "Impossible d'ouvrir le fichier !" << endl;
+		cerr << "Impossible d'ouvrir le fichier " << pcPath << " !" << endl;
 	throw Cexception(FILE_OPENING_ERROR);
 }
